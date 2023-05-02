@@ -14,7 +14,7 @@
 <body>
 	<h3>ENI-Enchères</h3>
 
-	<div id="Inscription-connexion" name ="Inscription-connexion" href="">S'inscrire - Se connecter</div>
+	<div id="Inscription-connexion" ><a href="${pageContext.request.contextPath}/Connexion" >S'inscrire - Se connecter</a></div>
 	
 	
 	<div id="Titre-Centre">Liste des enchères</div>

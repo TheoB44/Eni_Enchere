@@ -22,7 +22,7 @@
 	<input type="checkbox"></input>
 	<p link="https://google.com">Mot de passe oublié</p>
 
-	<button>Créer un compte</button>
+	<button onclick = "window.location.href = '${pageContext.request.contextPath}/Inscription'">Créer un compte</button>
 
 </body>
 </html>
