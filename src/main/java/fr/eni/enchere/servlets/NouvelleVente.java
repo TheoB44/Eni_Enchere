@@ -8,16 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Connexion
+ * Servlet implementation class NouvelleVente
  */
-@WebServlet("/Connexion")
-public class Connexion extends HttpServlet {
+@WebServlet("/NouvelleVente")
+public class NouvelleVente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public Connexion() {
+    public NouvelleVente() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -25,7 +26,7 @@ public class Connexion extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/Connexion.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/NouvelleVente.jsp").forward(request, response);
 	}
 
 	/**
