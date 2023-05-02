@@ -8,21 +8,33 @@
 <jsp:include page="fragments/meta.html"></jsp:include>
 </head>
 <body>
+	<div id="connexion-container">
 
-	<h1>ENI-Enchères</h1>
-	<br>
+		<h1>ENI-Enchères</h1>
+		<br>
 
-	<p>Identifiant :</p>
-	<input type="text"></input>
-	<br>
-	<p>Mot de passe :</p>
-	<input type="text"></input>
-	<br>
-	<button>Connexion</button>
-	<input type="checkbox"></input>
-	<p link="https://google.com">Mot de passe oublié</p>
 
-	<button>Créer un compte</button>
+		<div name="connexion-identifiant" id="connexion-identifiant">
+			<div id="connexion-divCo">Identifiant : <input type="text"></input></div>
+			<br>
+			<div id="connexion-divCo">Mot de passe : <input type="text"></input></div>
+		</div>
+
+		<br>
+
+		<br>
+
+		<button name="connexion-btn" id="connexion-btn">Connexion</button>
+
+		<div name="connexion-connexion" id="connexion-connexion">
+			<input type="checkbox"></input>
+			<p link="https://google.com">Mot de passe oublié</p>
+		</div>
+
+
+		<button>Créer un compte</button>
+
+	</div>
 
 </body>
 </html>
