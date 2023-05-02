@@ -5,7 +5,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <jsp:include page="fragments/meta.html"></jsp:include>
-<title>Insert title here</title>
+<link href="styles/style.css" rel="stylesheet" type="text/css">
+<title>Detail de la vente</title>
 </head>
 <body>
 	<h1>ENI-Enchères</h1>
@@ -16,7 +17,7 @@
 	<img></img>
 	</div>
 	
-	<div>
+	<div id = "DetailVente-Info">
 	
 	
 	<!-- A récupérer pour afficher -->

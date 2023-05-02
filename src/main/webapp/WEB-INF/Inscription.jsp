@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <jsp:include page="fragments/meta.html"></jsp:include>
+<link href="styles/style.css" rel="stylesheet" type="text/css">
 <title>Inscription</title>
 </head>
 <body>
@@ -12,24 +13,48 @@
 	
 	
 	<div id="Titre-Centre">Mon Profil</div>
+<br>
 
-
-<div Id = "Inscription-Input">
-
-Pseudo : <input type = "text"></input>		Nom : <input type = "text"></input>
+<div Id = "Inscription-Input-gauche">
+Pseudo : <input type = "text"></input>		
 <br>
-Prénom : <input type = "text"></input>		Email : <input type = "text"></input>
 <br>
-Téléphone : <input type = "text"></input>		Rue : <input type = "text"></input>
+Prénom : <input type = "text"></input>		
 <br>
-Code Postal : <input type = "text"></input>		Ville : <input type = "text"></input>
 <br>
-Mot de passe : <input type = "password"></input>		Confirmation : <input type = ""password""></input>
+Téléphone : <input type = "text"></input>		
+<br>
+<br>
+Code Postal : <input type = "text"></input>		
+<br>
+<br>
+Mot de passe : <input type = "password"></input>		
 <br>
 </div>
+<div Id = "Inscription-Input-droite">
+Nom : <input type = "text"></input>
+<br>
+<br>
 
-<div id="Isncription-Button">
+Email : <input type = "text"></input>
+<br>
+<br>
 
+Rue : <input type = "text"></input>
+<br>
+<br>
+
+Ville : <input type = "text"></input>
+<br>
+<br>
+
+Confirmation : <input type = ""password""></input>
+<br>
+
+</div>
+
+<div id="Inscription-Button">
+<br>
 <button href="">Créer</button> <button href="">Annuler</button>
 
 </div>
