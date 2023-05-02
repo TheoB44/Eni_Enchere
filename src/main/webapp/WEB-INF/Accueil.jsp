@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<jsp:include page="fragments/meta.html"></jsp:include>
 <title>Accueil</title>
 </head>
 <body>
