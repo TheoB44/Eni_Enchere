@@ -15,11 +15,15 @@ public class Articles_Vendus {
 	private int no_categorie;
 	private char etat_vente;
 	private String image;
+	private Utilisateurs utilisateur;
+	private Categories categorie;
 	
 	
+
+
 	public Articles_Vendus(int no_article, String nom_article, String description, Date date_debut_enchere,
 			Date date_fin_enchere, float prix_initial, float prix_vente, int no_utilisateur, int no_categorie,
-			char etat_vente, String image) {
+			char etat_vente, String image, Utilisateurs utilisateur, Categories categorie) {
 		super();
 		this.no_article = no_article;
 		this.nom_article = nom_article;
@@ -32,6 +36,8 @@ public class Articles_Vendus {
 		this.no_categorie = no_categorie;
 		this.etat_vente = etat_vente;
 		this.image = image;
+		this.utilisateur = utilisateur;
+		this.categorie = categorie;
 	}
 
 
@@ -87,6 +93,81 @@ public class Articles_Vendus {
 
 	public String getImage() {
 		return image;
+	}
+
+
+	public Utilisateurs getUtilisateur() {
+		return utilisateur;
+	}
+
+
+	public void setUtilisateur(Utilisateurs utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+
+
+	public Categories getCategorie() {
+		return categorie;
+	}
+
+
+	public void setCategorie(Categories categorie) {
+		this.categorie = categorie;
+	}
+
+
+	public void setNo_article(int no_article) {
+		this.no_article = no_article;
+	}
+
+
+	public void setNom_article(String nom_article) {
+		this.nom_article = nom_article;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+	public void setDate_debut_enchere(Date date_debut_enchere) {
+		this.date_debut_enchere = date_debut_enchere;
+	}
+
+
+	public void setDate_fin_enchere(Date date_fin_enchere) {
+		this.date_fin_enchere = date_fin_enchere;
+	}
+
+
+	public void setPrix_initial(float prix_initial) {
+		this.prix_initial = prix_initial;
+	}
+
+
+	public void setPrix_vente(float prix_vente) {
+		this.prix_vente = prix_vente;
+	}
+
+
+	public void setNo_utilisateur(int no_utilisateur) {
+		this.no_utilisateur = no_utilisateur;
+	}
+
+
+	public void setNo_categorie(int no_categorie) {
+		this.no_categorie = no_categorie;
+	}
+
+
+	public void setEtat_vente(char etat_vente) {
+		this.etat_vente = etat_vente;
+	}
+
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	
