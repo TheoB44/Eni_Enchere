@@ -22,6 +22,6 @@ public abstract class ConnectionProvider {
 	}
 
 	public static Connection getConnection() throws SQLException {
-		return ds.getConnection();
+		return ConnectionProvider.ds.getConnection();
 	}
 }

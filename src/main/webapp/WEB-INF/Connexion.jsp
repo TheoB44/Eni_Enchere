@@ -13,26 +13,32 @@
 		<h1>ENI-Enchères</h1>
 		<br>
 
+		<form class="row justify-content-center mb-2" method="post" action="Connexion">
 
-		<div name="connexion-identifiant" id="connexion-identifiant">
-			<div id="connexion-divCo">Identifiant : <input type="text"></input></div>
-			<br>
-			<div id="connexion-divCo">Mot de passe : <input type="text"></input></div>
-		</div>
+			<div name="connexion-identifiant" id="connexion-identifiant">
+				<div id="connexion-divCo">
+					Identifiant : <input type="text" name="connexion_identifiant"></input>
+				</div>
+				<br>
+				<div id="connexion-divCo">
+					Mot de passe : <input type="text" name="connexion_mdp"></input>
+				</div>
+			</div>
 
-		<br>
+			<br> <br>
 
-		<br>
+			<button name="connexion-btn" id="connexion-btn">Connexion</button>
 
-		<button name="connexion-btn" id="connexion-btn">Connexion</button>
+			<div name="connexion-connexion" id="connexion-connexion">
+				<input type="checkbox"></input>
+				<p link="https://google.com">Mot de passe oublié</p>
+			</div>
 
-		<div name="connexion-connexion" id="connexion-connexion">
-			<input type="checkbox"></input>
-			<p link="https://google.com">Mot de passe oublié</p>
-		</div>
+		</form>
 
-
-		<button>Créer un compte</button>
+		<button
+			onclick="window.location.href = '${pageContext.request.contextPath}/Inscription'">Créer
+			un compte</button>
 
 	</div>
 

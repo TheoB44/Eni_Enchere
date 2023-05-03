@@ -4,12 +4,12 @@ import DAL.UtilisateursDAO;
 import DAL.UtilisateursDAOJdbcImpl;
 
 public abstract class DAOFactory {
-	private static UtilisateursDAO listeDAO;
+	private static UtilisateursDAO utilDAO;
 	
-	public static UtilisateursDAO getListeDAO() {
-		if (listeDAO == null) {
-			listeDAO = new UtilisateursDAOJdbcImpl();
+	public static UtilisateursDAO getUtilDAO() {
+		if (utilDAO == null) {
+			utilDAO = new UtilisateursDAOJdbcImpl();
 		}
-		return listeDAO;
+		return utilDAO;
 	}
 }
