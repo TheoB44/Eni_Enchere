@@ -24,7 +24,7 @@
 		<br>
 	</div>
 	
-	<button href="">Modifier</button>
+	<button onclick = "window.location.href = '${pageContext.request.contextPath}/ModifierProfil'">Modifier</button>
 
 </body>
 </html>

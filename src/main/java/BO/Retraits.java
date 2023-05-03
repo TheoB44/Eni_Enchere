@@ -2,21 +2,21 @@ package BO;
 
 public class Retraits {
 
-	private int no_article;
 	private String rue;
 	private String code_postal;
 	private String ville;
+	private Articles_Vendus article;
 	
-	public Retraits(int no_article, String rue, String code_postal, String ville) {
+	public Retraits(Articles_Vendus article, String rue, String code_postal, String ville) {
 		super();
-		this.no_article = no_article;
+		this.article = article;
 		this.rue = rue;
 		this.code_postal = code_postal;
 		this.ville = ville;
 	}
 
-	public int getNo_article() {
-		return no_article;
+	public Articles_Vendus getarticle() {
+		return article;
 	}
 
 	public String getRue() {

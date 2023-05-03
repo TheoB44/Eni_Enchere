@@ -2,15 +2,19 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+
+
+<link href="styles/style.css" rel="stylesheet" type="text/css">
+
 <head>
 <meta charset="ISO-8859-1">
 <jsp:include page="fragments/meta.html"></jsp:include>
 <title>Accueil</title>
 </head>
 <body>
-	<h1>ENI-Enchères</h1>
+	<h3>ENI-Enchères</h3>
 
-	<div id="Inscription-connexion" href="">S'inscrire - Se connecter</div>
+	<div id="Inscription-connexion" ><a href="${pageContext.request.contextPath}/Connexion" >S'inscrire - Se connecter</a></div>
 	
 	
 	<div id="Titre-Centre">Liste des enchères</div>
@@ -27,13 +31,22 @@
 			<option value="all">Ameublement</option>
 			<option value="all">Vêtement</option>
 			<option value="all">Sport&Loisir</option>
-	</div>
+			
+			
+			
+			
 
+
+
+			
+	</div>
+	
 	<div id="bouton">
-		<button>Rechercher</button>
+		<button  href="">Rechercher</button>
 	</div>
-
-	<div id="Liste-Enchere">Afficher la liste des enchères ici.</div>
+	
+		<div id="Liste-Enchere">Afficher la liste des enchères ici.</div>
+	
 
 
 </body>
