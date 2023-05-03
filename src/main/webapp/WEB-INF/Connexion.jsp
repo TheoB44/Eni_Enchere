@@ -18,11 +18,16 @@
 	<p>Mot de passe :</p>
 	<input type="text"></input>
 	<br>
-	<button>Connexion</button>
+	<button onclick = "window.location.href = '${pageContext.request.contextPath}/ListeEncheres'">Connexion</button>
+	
 	<input type="checkbox"></input>
-	<p link="https://google.com">Mot de passe oublié</p>
+	
+	<a href="https://google.com">Mot de passe oublié</a>
+	
+	<br>
+	<br>
 
-	<button>Créer un compte</button>
+	<button onclick = "window.location.href = '${pageContext.request.contextPath}/Inscription'">Créer un compte</button>
 
 </body>
 </html>

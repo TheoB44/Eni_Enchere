@@ -2,13 +2,14 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
+<link href="styles/style.css" rel="stylesheet" type="text/css">
 <head>
 <meta charset="ISO-8859-1">
 <jsp:include page="fragments/meta.html"></jsp:include>
 <title>Acquéreur</title>
 </head>
 <body>
-	<h1>ENI-Enchères</h1>
+	<h3>ENI-Enchères</h3>
 	
 	<div id="Titre-Centre">[Insérer nom] a remporté l'enchère</div>
 	
@@ -16,7 +17,7 @@
 	<img></img>
 	</div>
 	
-	<div>
+	<div id = "Acquereur-Info">
 	<!--Nom de l'article -->
 	
 	<br>
@@ -34,10 +35,10 @@
 	<br>
 	Vendeur : <!-- pseudo -->
 	<br>
-	
+		<button id = "Acquereur-Retrait" onclick = "window.location.href = '${pageContext.request.contextPath}/ListeEncheres'">Retrait effectué</button>
 	</div>
 	
-	<button id = "Acquereur-Retrait" href = "">Retrait effectué</button>
+
 
 </body>
 </html>

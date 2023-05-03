@@ -36,7 +36,7 @@ Crédit : <!-- Afficher nombre crédit -->
 
 <div id="Isncription-Button">
 
-<button href="">Enregistrer</button> <button href="">Supprimer</button>
+<button onclick = "window.location.href = '${pageContext.request.contextPath}/ListeEncheres'">Enregistrer</button> <button onclick = "window.location.href = '${pageContext.request.contextPath}/Accueil'">Supprimer</button>
 
 </div>
 
