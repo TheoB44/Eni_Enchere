@@ -20,7 +20,7 @@
 	<br>
 	<button onclick = "window.location.href = '${pageContext.request.contextPath}/ListeEncheres'">Connexion</button>
 	
-	<input type="checkbox"></input>
+	<input type="checkbox"> Se souvenir de moi</input> <!-- Ici créer un cookie avec les id -->
 	
 	<a href="https://google.com">Mot de passe oublié</a>
 	
