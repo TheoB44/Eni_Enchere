@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import BLL.UtilisateurBLL;
+
 /**
  * Servlet implementation class Accueil
  */
@@ -14,6 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 public class Accueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	private UtilisateurBLL bll;
+	
+	@Override
+	public void init() throws ServletException {
+		bll = new UtilisateurBLL();
+	}
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -27,6 +36,8 @@ public class Accueil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setAttribute("liste", bll);
+		
 		request.getRequestDispatcher("/WEB-INF/Accueil.jsp").forward(request, response);
 	}
 

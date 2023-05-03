@@ -8,7 +8,8 @@ public class Encheres {
 	private Date date_enchere;
 	private float montant_enchere;
 	
-	
+	public Encheres() {
+	}
 	
 	public Encheres(int no_utilisateur, int no_article, Date date_enchere, float montant_enchere) {
 		super();
@@ -40,6 +41,22 @@ public class Encheres {
 
 	public float getMontant_enchere() {
 		return montant_enchere;
+	}
+
+	public void setNo_utilisateur(int no_utilisateur) {
+		this.no_utilisateur = no_utilisateur;
+	}
+
+	public void setNo_article(int no_article) {
+		this.no_article = no_article;
+	}
+
+	public void setDate_enchere(Date date_enchere) {
+		this.date_enchere = date_enchere;
+	}
+
+	public void setMontant_enchere(float montant_enchere) {
+		this.montant_enchere = montant_enchere;
 	}
 
 	
