@@ -22,5 +22,10 @@ public class UtilisateurBLL {
 	{
 		return dao.selectById(id);
 	}
+	
+	public void insert(Utilisateurs util)
+	{
+		dao.insert(util);
+	}
 
 }

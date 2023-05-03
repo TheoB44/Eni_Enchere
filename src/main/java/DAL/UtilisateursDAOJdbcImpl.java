@@ -13,7 +13,7 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 	
 	private static final String SELECT_CONNEXION = "SELECT * FROM UTILISATEURS WHERE pseudo = ? AND mot_de_passe = ?;";
 	private static final String SELECT_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ?;";
-	private static final String INSERT = "INSERT INTO UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+	private static final String INSERT = "INSERT INTO UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	private static final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?;";
 
 	@Override
@@ -87,7 +87,18 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 										PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			// 3e etape : attribuer les parametres nécessaires à ma requête
-			ps.setString(1, util.getNom());
+			ps.setString(1, util.getPseudo());
+			ps.setString(2, util.getNom());
+			ps.setString(3, util.getPrenom());
+			ps.setString(4, util.getEmail());
+			ps.setString(5, util.getTelephone());
+			ps.setString(6, util.getRue());
+			ps.setString(7, util.getCode_postal());
+			ps.setString(8, util.getVille());
+			ps.setString(9, util.getMot_de_passe());
+			ps.setInt(10, 0);
+			ps.setBoolean(11, util.isAdministrateur());
+			
 			
 			// 4e etape : execution de la requete et interpretation des resultats
 			ps.executeUpdate();
