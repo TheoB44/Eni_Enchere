@@ -8,26 +8,38 @@
 <jsp:include page="fragments/meta.html"></jsp:include>
 </head>
 <body>
+	<div id="connexion-container">
 
-	<h1>ENI-Enchères</h1>
-	<br>
+		<h1>ENI-EnchÃ¨res</h1>
+		<br>
 
-	<p>Identifiant :</p>
-	<input type="text"></input>
-	<br>
-	<p>Mot de passe :</p>
-	<input type="text"></input>
-	<br>
-	<button onclick = "window.location.href = '${pageContext.request.contextPath}/ListeEncheres'">Connexion</button>
-	
-	<input type="checkbox"> Se souvenir de moi</input> <!-- Ici créer un cookie avec les id -->
-	
-	<a href="https://google.com">Mot de passe oublié</a>
-	
-	<br>
-	<br>
+		<form class="row justify-content-center mb-2" method="post" action="Connexion">
 
-	<button onclick = "window.location.href = '${pageContext.request.contextPath}/Inscription'">Créer un compte</button>
+			<div name="connexion-identifiant" id="connexion-identifiant">
+				<div id="connexion-divCo">
+					Identifiant : <input type="text" name="connexion_identifiant"></input>
+				</div>
+				<br>
+				<div id="connexion-divCo">
+					Mot de passe : <input type="text" name="connexion_mdp"></input>
+				</div>
+			</div>
 
+			<br> <br>
+
+			<button name="connexion-btn" id="connexion-btn">Connexion</button>
+
+			<div name="connexion-connexion" id="connexion-connexion">
+	    <input type="checkbox"> Se souvenir de moi</input> <!-- Ici crÃ©er un cookie avec les id -->
+				<p link="https://google.com">Mot de passe oubliÃ©</p>
+			</div>
+
+		</form>
+
+		<button
+			onclick="window.location.href = '${pageContext.request.contextPath}/Inscription'">CrÃ©er
+			un compte</button>
+
+	</div>
 </body>
 </html>

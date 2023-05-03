@@ -3,7 +3,7 @@ package BO;
 public class Utilisateurs {
 
 	private int no_utilisateurs;
-	private String psuedo;
+	private String pseudo;
 	private String nom;
 	private String prenom;
 	private String email;
@@ -16,11 +16,11 @@ public class Utilisateurs {
 	private boolean administrateur;
 
 
-public Utilisateurs(int no_utilisateurs, String psuedo, String nom, String prenom, String email, String telephone,
+public Utilisateurs(int no_utilisateurs, String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String code_postal, String ville, String mot_de_passe, int credit, boolean administrateur) {
 		super();
 		this.no_utilisateurs = no_utilisateurs;
-		this.psuedo = psuedo;
+		this.pseudo = pseudo;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
@@ -33,11 +33,14 @@ public Utilisateurs(int no_utilisateurs, String psuedo, String nom, String preno
 		this.administrateur = administrateur;
 	}
 
+public Utilisateurs() {
+}
+
 public int getNo_utilisateurs() {
 	return no_utilisateurs;
 }
-public String getPsuedo() {
-	return psuedo;
+public String getPseudo() {
+	return pseudo;
 }
 public String getNom() {
 	return nom;
@@ -69,5 +72,58 @@ public int getCredit() {
 public boolean isAdministrateur() {
 	return administrateur;
 }
+
+
+
+
+public void setNo_utilisateurs(int no_utilisateurs) {
+	this.no_utilisateurs = no_utilisateurs;
+}
+
+public void setPseudo(String pseudo) {
+	this.pseudo = pseudo;
+}
+
+public void setNom(String nom) {
+	this.nom = nom;
+}
+
+public void setPrenom(String prenom) {
+	this.prenom = prenom;
+}
+
+public void setEmail(String email) {
+	this.email = email;
+}
+
+public void setTelephone(String telephone) {
+	this.telephone = telephone;
+}
+
+public void setRue(String rue) {
+	this.rue = rue;
+}
+
+public void setCode_postal(String code_postal) {
+	this.code_postal = code_postal;
+}
+
+public void setVille(String ville) {
+	this.ville = ville;
+}
+
+public void setMot_de_passe(String mot_de_passe) {
+	this.mot_de_passe = mot_de_passe;
+}
+
+public void setCredit(int credit) {
+	this.credit = credit;
+}
+
+public void setAdministrateur(boolean administrateur) {
+	this.administrateur = administrateur;
+}
+
+
 	
 }
