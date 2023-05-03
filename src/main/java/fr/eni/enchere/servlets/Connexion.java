@@ -54,6 +54,7 @@ public class Connexion extends HttpServlet {
 		}
 		
 		if(util.getNo_utilisateurs() > 0) {
+			request.setAttribute("Id_Utils", util.getNo_utilisateurs());
 			request.getRequestDispatcher("/WEB-INF/ListeEncheres.jsp").forward(request, response);
 		}
 		

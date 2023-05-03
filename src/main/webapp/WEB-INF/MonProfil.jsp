@@ -10,21 +10,23 @@
 <body>
 	<h1>ENI-Enchères</h1>
 
-
 <!-- Afficher les infos de l'utilisateurs -->
-	<div>
-		Pseudo : <br> 
-		Nom : <br> 
-		Prénom : <br> 
-		Email : <br>
-		Téléphone : <br> 
-		Rue : <br> 
-		Code postal : <br> 
-		Ville :
-		<br>
-	</div>
+	<form action="MonProfil" method="get">
+		<div>
+			Pseudo : ${Utilisateur.pseudo}<br> 
+			Nom : ${Utilisateur.nom}<br> 
+			Prénom : ${Utilisateur.prenom}<br> 
+			Email : ${Utilisateur.email}<br>
+			Téléphone : ${Utilisateur.telephone}<br> 
+			Rue : ${Utilisateur.rue}<br> 
+			Code postal : ${Utilisateur.code_postal}<br> 
+			Ville : ${Utilisateur.ville}
+			<br>
+		</div>
+	</form>
+	<c:if test="${MonProfil}">
+		<button onclick = "window.location.href = '${pageContext.request.contextPath}/ModifierProfil'">Modifier</button>
+	</c:if>
 	
-	<button onclick = "window.location.href = '${pageContext.request.contextPath}/ModifierProfil'">Modifier</button>
-
 </body>
 </html>

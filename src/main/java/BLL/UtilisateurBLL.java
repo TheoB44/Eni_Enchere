@@ -17,5 +17,10 @@ public class UtilisateurBLL {
 	public Utilisateurs connexion(String id, String mdp) {
 		return dao.Connexion(id, mdp);
 	}
+	
+	public Utilisateurs selectById(int id)
+	{
+		return dao.selectById(id);
+	}
 
 }

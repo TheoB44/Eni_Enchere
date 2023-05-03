@@ -59,17 +59,17 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 			resultat = new Utilisateurs();
 			while (rs.next()) {
 				resultat.setNo_utilisateurs(rs.getInt("no_utilisateur"));
-				resultat.setAdministrateur(rs.getBoolean(""));
-				resultat.setCode_postal(rs.getString(""));
-				resultat.setCredit(rs.getInt(""));
-				resultat.setEmail(rs.getString(""));
-				resultat.setMot_de_passe(rs.getString(""));
-				resultat.setNom(rs.getString(""));
-				resultat.setPrenom(rs.getString(""));
-				resultat.setPseudo(rs.getString(""));
-				resultat.setRue(rs.getString(""));
-				resultat.setTelephone(rs.getString(""));
-				resultat.setVille(rs.getString(""));
+				resultat.setAdministrateur(rs.getBoolean("administrateur"));
+				resultat.setCode_postal(rs.getString("code_postal"));
+				resultat.setCredit(rs.getInt("credit"));
+				resultat.setEmail(rs.getString("email"));
+				resultat.setMot_de_passe(rs.getString("mot_de_passe"));
+				resultat.setNom(rs.getString("nom"));
+				resultat.setPrenom(rs.getString("prenom"));
+				resultat.setPseudo(rs.getString("pseudo"));
+				resultat.setRue(rs.getString("rue"));
+				resultat.setTelephone(rs.getString("telephone"));
+				resultat.setVille(rs.getString("ville"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
