@@ -34,7 +34,7 @@
 	Tel : <!-- Tel -->
 	<br>
 	
-	<button id = "Acquisition-Back" href = "">Back</button>
+	<button id = "Acquisition-Back" onclick = "window.location.href = '${pageContext.request.contextPath}/ListeEncheres'">Back</button>
 	</div>
 	
 	

@@ -12,6 +12,15 @@
 	<h1>ENI-Enchères</h1>
 
 	<h2>Liste des enchères</h2>
+	
+	<div id="ListeEnchere-Lien">
+	<a href="${pageContext.request.contextPath}/Encherir" >Enchère	</a>
+	<a href="${pageContext.request.contextPath}/NouvelleVente" >Vendre un article</a>	
+	<a href="${pageContext.request.contextPath}/MonProfil" >Mon Profil	</a>
+	<a href="${pageContext.request.contextPath}/Accueil" >Déconnexion</a>
+	</div>
+	
+	
 
 	<div>
 		<h3>Filtres :</h3>

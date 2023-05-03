@@ -35,7 +35,7 @@
 	<br>
 	Vendeur : <!-- pseudo -->
 	<br>
-		<button id = "Acquereur-Retrait" href = "">Retrait effectué</button>
+		<button id = "Acquereur-Retrait" onclick = "window.location.href = '${pageContext.request.contextPath}/ListeEncheres'">Retrait effectué</button>
 	</div>
 	
 

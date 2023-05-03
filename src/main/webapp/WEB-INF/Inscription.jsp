@@ -48,14 +48,14 @@ Ville : <input type = "text"></input>
 <br>
 <br>
 
-Confirmation : <input type = ""password""></input>
+Confirmation : <input type = "password"></input>
 <br>
 
 </div>
 
 <div id="Inscription-Button">
 <br>
-<button href="">Créer</button> <button href="">Annuler</button>
+<button honclick = "window.location.href = '${pageContext.request.contextPath}/ListeEncheres'">Créer</button> <button onclick = "window.location.href = '${pageContext.request.contextPath}/Accueil'">Annuler</button>
 
 </div>
 
