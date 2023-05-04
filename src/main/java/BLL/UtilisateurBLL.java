@@ -17,5 +17,25 @@ public class UtilisateurBLL {
 	public Utilisateurs connexion(String id, String mdp) {
 		return dao.Connexion(id, mdp);
 	}
+	
+	public Utilisateurs selectById(int id)
+	{
+		return dao.selectById(id);
+	}
+	
+	public void insert(Utilisateurs util)
+	{
+		dao.insert(util);
+	}
+	
+	public void update(Utilisateurs util)
+	{
+		dao.update(util);
+	}
+	
+	public void delete(int idUtil)
+	{
+		dao.delete(idUtil);
+	}
 
 }

@@ -4,18 +4,27 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import BO.Utilisateurs;
 import DAL.UtilisateursDAO;
 import DAL.ConnectionProvider;
 
 public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
-	
+
 	private static final String SELECT_CONNEXION = "SELECT * FROM UTILISATEURS WHERE pseudo = ? AND mot_de_passe = ?;";
 	private static final String SELECT_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ?;";
-	private static final String INSERT = "INSERT INTO UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-	private static final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?;";
-
+	private static final String INSERT = "INSERT INTO UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+	private static final String DELETEUTILISATEUR = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?;";
+	private static final String DELETEARTICLE = "DELETE FROM ARTICLES_VENDUS WHERE no_utilisateur=?;";
+	private static final String DELETEENCHERE = "DELETE FROM ENCHERES WHERE no_article = ?;";
+	private static final String DELETERETRAITS = "DELETE FROM RETRAITS WHERE no_article = ?;";
+	private static final String UPDTATE = "UPDATE UTILISATEURS SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? WHERE no_utilisateur=?;";
+	private static final String SELECT_ARTICLE_UTILISATEUR = "SELECT no_article FROM ARTICLES_VENDUS WHERE no_utilisateur=?";
+	
+	
+	
 	@Override
 	public Utilisateurs Connexion(String identifiant, String mdp) {
 		Utilisateurs resultat = null;
@@ -23,14 +32,14 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 		try (Connection cnx = ConnectionProvider.getConnection();) {
 			// 2e etape : preparer la requete SQL qu'on souhaite executer
 			PreparedStatement ps = cnx.prepareStatement(SELECT_CONNEXION);
-			
+
 			// 3e etape : attribuer les parametres nécessaires à ma requête
 			ps.setString(1, identifiant);
 			ps.setString(2, mdp);
-			
+
 			// 4e etape : execution de la requete et interpretation des resultats
 			ResultSet rs = ps.executeQuery();
-			if(rs != null) {
+			if (rs != null) {
 				resultat = new Utilisateurs();
 				while (rs.next()) {
 					resultat.setNo_utilisateurs(rs.getInt("no_utilisateur"));
@@ -42,7 +51,7 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 		}
 		return resultat;
 	}
-	
+
 	@Override
 	public Utilisateurs selectById(int id) {
 		Utilisateurs resultat = null;
@@ -50,26 +59,26 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 		try (Connection cnx = ConnectionProvider.getConnection();) {
 			// 2e etape : preparer la requete SQL qu'on souhaite executer
 			PreparedStatement ps = cnx.prepareStatement(SELECT_BY_ID);
-			
+
 			// 3e etape : attribuer les parametres nécessaires à ma requête
 			ps.setInt(1, id);
-			
+
 			// 4e etape : execution de la requete et interpretation des resultats
 			ResultSet rs = ps.executeQuery();
 			resultat = new Utilisateurs();
 			while (rs.next()) {
 				resultat.setNo_utilisateurs(rs.getInt("no_utilisateur"));
-				resultat.setAdministrateur(rs.getBoolean(""));
-				resultat.setCode_postal(rs.getString(""));
-				resultat.setCredit(rs.getInt(""));
-				resultat.setEmail(rs.getString(""));
-				resultat.setMot_de_passe(rs.getString(""));
-				resultat.setNom(rs.getString(""));
-				resultat.setPrenom(rs.getString(""));
-				resultat.setPseudo(rs.getString(""));
-				resultat.setRue(rs.getString(""));
-				resultat.setTelephone(rs.getString(""));
-				resultat.setVille(rs.getString(""));
+				resultat.setAdministrateur(rs.getBoolean("administrateur"));
+				resultat.setCode_postal(rs.getString("code_postal"));
+				resultat.setCredit(rs.getInt("credit"));
+				resultat.setEmail(rs.getString("email"));
+				resultat.setMot_de_passe(rs.getString("mot_de_passe"));
+				resultat.setNom(rs.getString("nom"));
+				resultat.setPrenom(rs.getString("prenom"));
+				resultat.setPseudo(rs.getString("pseudo"));
+				resultat.setRue(rs.getString("rue"));
+				resultat.setTelephone(rs.getString("telephone"));
+				resultat.setVille(rs.getString("ville"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -82,13 +91,21 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 		// 1e etape : ouvrir la connexion a la bdd
 		try (Connection cnx = ConnectionProvider.getConnection();) {
 			// 2e etape : preparer la requete SQL qu'on souhaite executer
-			PreparedStatement ps =
-					cnx.prepareStatement(INSERT,
-										PreparedStatement.RETURN_GENERATED_KEYS);
-			
+			PreparedStatement ps = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
+
 			// 3e etape : attribuer les parametres nécessaires à ma requête
-			ps.setString(1, util.getNom());
-			
+			ps.setString(1, util.getPseudo());
+			ps.setString(2, util.getNom());
+			ps.setString(3, util.getPrenom());
+			ps.setString(4, util.getEmail());
+			ps.setString(5, util.getTelephone());
+			ps.setString(6, util.getRue());
+			ps.setString(7, util.getCode_postal());
+			ps.setString(8, util.getVille());
+			ps.setString(9, util.getMot_de_passe());
+			ps.setInt(10, 0);
+			ps.setBoolean(11, util.isAdministrateur());
+
 			// 4e etape : execution de la requete et interpretation des resultats
 			ps.executeUpdate();
 			ResultSet rs = ps.getGeneratedKeys();
@@ -96,21 +113,104 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 				int id = rs.getInt(1);
 				util.setNo_utilisateurs(id);
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void delete(int no_util) {
+		deleteEnchere(no_util);
+		deleteArticles(no_util);
+		deleteUtil(no_util);
+	}
+
+	private void deleteEnchere(int no_util) {
 		try (Connection cnx = ConnectionProvider.getConnection();) {
-			PreparedStatement ps = cnx.prepareStatement(DELETE);
+				
+			cnx.setAutoCommit(false);
+			
+				PreparedStatement ps = cnx.prepareStatement(SELECT_ARTICLE_UTILISATEUR);
+
+				ps.setInt(1, no_util);
+
+				ResultSet rs = ps.executeQuery();
+				List<Integer> resultat= new ArrayList<Integer>();
+				int i = 1;
+				while (rs.next()) {
+					resultat.add(rs.getInt(i));
+					i++;
+				}
+			
+			
+			for (Integer integer : resultat) {
+				PreparedStatement ps2 = cnx.prepareStatement(DELETEENCHERE);
+				ps2.setInt(1,integer.intValue());
+				ps2.executeUpdate();
+				
+				cnx.commit();
+				
+				PreparedStatement ps3 = cnx.prepareStatement(DELETERETRAITS);
+				ps2.setInt(1,integer.intValue());
+				ps2.executeUpdate();
+				
+				cnx.commit();
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void deleteArticles(int no_util) {
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+			
+			cnx.setAutoCommit(false);
+			
+			PreparedStatement ps = cnx.prepareStatement(DELETEARTICLE);
+			ps.setInt(1, no_util);
+			ps.executeUpdate();
+			
+			cnx.commit();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void deleteUtil(int no_util) {
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+			
+			PreparedStatement ps = cnx.prepareStatement(DELETEUTILISATEUR);
 			ps.setInt(1, no_util);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
+	public void update(Utilisateurs util) {
+
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+			PreparedStatement ps = cnx.prepareStatement(UPDTATE);
+
+			// element à modifier
+			ps.setString(1, util.getPseudo());
+			ps.setString(2, util.getNom());
+			ps.setString(3, util.getPrenom());
+			ps.setString(4, util.getEmail());
+			ps.setString(5, util.getTelephone());
+			ps.setString(6, util.getRue());
+			ps.setString(7, util.getCode_postal());
+			ps.setString(8, util.getVille());
+			ps.setString(9, util.getMot_de_passe());
+			// Condition
+			ps.setInt(10, util.getNo_utilisateurs());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
 }

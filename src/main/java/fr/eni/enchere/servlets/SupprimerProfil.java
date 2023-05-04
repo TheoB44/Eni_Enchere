@@ -6,30 +6,31 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import BLL.UtilisateurBLL;
 import BO.Utilisateurs;
 
 /**
- * Servlet implementation class Liste_Encheres
+ * Servlet implementation class SupprimerProfil
  */
-@WebServlet("/ListeEncheres")
-public class ListeEncheres extends HttpServlet {
+@WebServlet("/SupprimerProfil")
+public class SupprimerProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	private UtilisateurBLL bll;
 	
+	private UtilisateurBLL bll;
+
 	@Override
 	public void init() throws ServletException {
 		bll = new UtilisateurBLL();
 	}
 	
 	
-	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ListeEncheres() {
+    public SupprimerProfil() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,33 +39,37 @@ public class ListeEncheres extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		String pId = request.getParameter("Id_Utils");
-		if (pId != null && !pId.isBlank()) {
-			int id = Integer.valueOf(pId);
-			
-			request.setAttribute("IDUtilisateur", id);
-		}
-
-		request.getRequestDispatcher("/WEB-INF/ListeEncheres.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		doDelete(request, response);
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String pIdUtil = request.getParameter("IDUtilisateur");
-
-		if (pIdUtil != null && !pIdUtil.isBlank()) {
-			int id = Integer.valueOf(pIdUtil);
-			
-			request.setAttribute("IDUtilisateur", id);
-			request.setAttribute("MonProfil", true);
-			
-			request.getRequestDispatcher("/MonProfil").forward(request, response);
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
+	
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		// TODO : récuperer l'utilisateur connecté via la variable de session, puis le supprimer
+		
+		HttpSession session = request.getSession();
+		int idutilActual = 0;
+		if(session != null) {
+			idutilActual = (int) session.getAttribute("IdUtilisateur");
+		}
+		
+		bll.delete(idutilActual);
+		
+		session.setAttribute("userConnected", false);
+		
+		request.getRequestDispatcher("/Accueil").forward(request, response);
+	}
+	
+	
+	
+	
+	
 
-}
 }

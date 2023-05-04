@@ -57,6 +57,8 @@ public class Connexion extends HttpServlet {
 		if(util.getNo_utilisateurs() > 0) {
 			HttpSession session = request.getSession();
 			session.setAttribute("currentUser", util);
+			session.setAttribute("IdUtilisateur", util.getNo_utilisateurs());
+			session.setAttribute("userConnected", true);
 			request.getRequestDispatcher("/Accueil").forward(request, response);
 		}
 		

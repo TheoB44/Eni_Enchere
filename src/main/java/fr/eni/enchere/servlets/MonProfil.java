@@ -6,6 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import BLL.UtilisateurBLL;
+import BO.Utilisateurs;
 
 /**
  * Servlet implementation class MonProfil
@@ -14,6 +18,16 @@ import javax.servlet.http.HttpServletResponse;
 public class MonProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	
+	private UtilisateurBLL bll;
+	
+	@Override
+	public void init() throws ServletException {
+		bll = new UtilisateurBLL();
+	}
+	
+	
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -27,6 +41,24 @@ public class MonProfil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		boolean isMyProfil = false;
+		int id = 0;
+		HttpSession session = request.getSession();
+		if(session != null) {
+			id = (int) session.getAttribute("IdUtilisateur");
+			isMyProfil = (boolean) session.getAttribute("userConnected");
+		}
+		
+		
+		if (id > 0) {
+			Utilisateurs utils = new Utilisateurs();
+			
+			utils = bll.selectById(id);
+			
+			request.setAttribute("Utilisateur", utils);
+			request.setAttribute("MonProfil", isMyProfil);
+		}
+		
 		request.getRequestDispatcher("/WEB-INF/MonProfil.jsp").forward(request, response);
 	}
 
@@ -35,6 +67,7 @@ public class MonProfil extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		doGet(request, response);
 	}
 

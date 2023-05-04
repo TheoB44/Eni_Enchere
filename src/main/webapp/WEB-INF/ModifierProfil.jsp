@@ -13,20 +13,20 @@
 	
 	<div id="Titre-Centre">Mon Profil</div>
 
-
+<form method = "post" action = "ModifierProfil">
 <div Id = "Inscription-Input">
 
-Pseudo : <input type = "text"></input>		Nom : <input type = "text"></input>
+Pseudo : <input type = "text" name = "pseudo" id="pseudo"></input>		Nom : <input type = "text" name = "nom" id="nom"></input>
 <br>
-Prénom : <input type = "text"></input>		Email : <input type = "text"></input>
+Prénom : <input type = "text" name = "prenom" id="prenom"></input>		Email : <input type = "text" name = "email" id="email"></input>
 <br>
-Téléphone : <input type = "text"></input>		Rue : <input type = "text"></input>
+Téléphone : <input type = "text" name = "telephone" id="telephone"></input>		Rue : <input type = "text" name = "rue" id="rue"></input>
 <br>
-Code Postal : <input type = "text"></input>		Ville : <input type = "text"></input>
+Code Postal : <input type = "text" name = "codePostal" id="codePostal"></input>		Ville : <input type = "text" name = "ville" id="ville"></input>
 <br>
-Mot de passe actuel : <input type = "password"></input>
+Mot de passe actuel : <input type = "password" name = "passwordActuel" id="passwordActuel"></input>
 <br>
-Mot de passe : <input type = "password"></input>		Confirmation : <input type = ""password""></input>
+Mot de passe : <input type = "password" name = "passwordNew" id="passwordNew"></input>		Confirmation : <input type = "password" name = "passwordConfirmation" id="passwordConfirmation"></input>
 <br>
 
 Crédit : <!-- Afficher nombre crédit -->
@@ -34,12 +34,15 @@ Crédit : <!-- Afficher nombre crédit -->
 
 </div>
 
-<div id="Isncription-Button">
+	<div id="Isncription-Button">
+	
+	<button>Enregistrer</button> 
+	
+	</div>
+</form>
 
-<button onclick = "window.location.href = '${pageContext.request.contextPath}/ListeEncheres'">Enregistrer</button> <button onclick = "window.location.href = '${pageContext.request.contextPath}/Accueil'">Supprimer</button>
-
-</div>
-
-
+<form method = "delete" action = "SupprimerProfil">
+<button onclick = "window.location.href = '${pageContext.request.contextPath}/Accueil'">Supprimer</button>
+</form>
 </body>
 </html>
