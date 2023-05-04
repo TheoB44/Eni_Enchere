@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import BLL.CategorieBLL;
 import BLL.EncheresBLL;
@@ -61,7 +62,11 @@ public class Accueil extends HttpServlet {
 			request.setAttribute("listeCategories", bllCategories.listeCategories());
 		}
 		
-		
+		HttpSession session = request.getSession();
+		if(session != null) {
+			request.setAttribute("userConnected",true);
+			request.setAttribute("util", session.getAttribute("currentUser"));
+		}
 		
 		request.getRequestDispatcher("/WEB-INF/Accueil.jsp").forward(request, response);
 	}
@@ -73,8 +78,10 @@ public class Accueil extends HttpServlet {
 		String searchNomArticle = request.getParameter("searchNomArticle");
 		String categorieEnchere = request.getParameter("categorieEnchere");
 		
-		request.setAttribute("listeEncheresPost", bllEncheres.listeEncheresSearch(searchNomArticle, categorieEnchere));
-		request.setAttribute("listeCategoriesPost", bllCategories.listeCategories());
+		if(searchNomArticle != null && categorieEnchere != null) {
+			request.setAttribute("listeEncheresPost", bllEncheres.listeEncheresSearch(searchNomArticle, categorieEnchere));
+			request.setAttribute("listeCategoriesPost", bllCategories.listeCategories());
+		}
 		
 		doGet(request, response);
 	}

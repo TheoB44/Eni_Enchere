@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import BLL.UtilisateurBLL;
 import BO.Utilisateurs;
@@ -54,7 +55,9 @@ public class Connexion extends HttpServlet {
 		}
 		
 		if(util.getNo_utilisateurs() > 0) {
-			request.getRequestDispatcher("/WEB-INF/ListeEncheres.jsp").forward(request, response);
+			HttpSession session = request.getSession();
+			session.setAttribute("currentUser", util);
+			request.getRequestDispatcher("/Accueil").forward(request, response);
 		}
 		
 	}
