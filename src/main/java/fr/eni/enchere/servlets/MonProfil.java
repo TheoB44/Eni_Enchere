@@ -41,12 +41,21 @@ public class MonProfil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		boolean isMyProfil = false;
+		String isMyProfil = null;
+		boolean monProfil = false;
+		isMyProfil = request.getParameter("MyProfil");
+		
+		if(isMyProfil != null && !isMyProfil.isBlank())
+		{
+			if(isMyProfil.toLowerCase().contains("true"))
+				monProfil = true;
+		}
+			
+		
 		int id = 0;
 		HttpSession session = request.getSession();
 		if(session != null) {
 			id = (int) session.getAttribute("IdUtilisateur");
-			isMyProfil = (boolean) session.getAttribute("userConnected");
 		}
 		
 		
@@ -56,7 +65,7 @@ public class MonProfil extends HttpServlet {
 			utils = bll.selectById(id);
 			
 			request.setAttribute("Utilisateur", utils);
-			request.setAttribute("MonProfil", isMyProfil);
+			request.setAttribute("MonProfil", monProfil);
 		}
 		
 		request.getRequestDispatcher("/WEB-INF/MonProfil.jsp").forward(request, response);
