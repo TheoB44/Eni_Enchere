@@ -20,7 +20,9 @@
 				<button >Mon Profil	</button>
 				<input type="hidden" value="${Id_Utils}" name="IDUtilisateur" id="IDUtilisateur"/>
 			</form>
-		<a href="${pageContext.request.contextPath}/Accueil">Déconnexion</a>
+		<form  method = "get" action="Deconnexion">
+				<button >Deconnexion</button>
+			</form>
 	</div>
 
 
