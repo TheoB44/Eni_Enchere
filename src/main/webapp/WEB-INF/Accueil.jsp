@@ -9,14 +9,17 @@
 <title>Accueil</title>
 </head>
 <body>
-	<h1>ENI-Enchères ${util.pseudo}</h1>
+	<h1>ENI-Enchères</h1>
 
 	<div id="Inscription-connexion" ><a href="${pageContext.request.contextPath}/Connexion" >S'inscrire - Se connecter</a></div>
 
 	<div id="ListeEnchere-Lien">
 		<a href="${pageContext.request.contextPath}/Encherir">Enchère </a> 
 		<a href="${pageContext.request.contextPath}/NouvelleVente">Vendre un article</a>
-		<a href="${pageContext.request.contextPath}/MonProfil">Mon Profil </a>
+			<form  method = "get" action="MonProfil">
+				<button>Mon Profil	</button>
+				<input type="hidden" value="${Id_Utils}" name="IDUtilisateur" id="IDUtilisateur"/> 
+			</form>
 		<a href="${pageContext.request.contextPath}/Accueil">Déconnexion</a>
 	</div>
 

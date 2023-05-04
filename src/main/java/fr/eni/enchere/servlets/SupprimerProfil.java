@@ -6,8 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import BLL.UtilisateurBLL;
+import BO.Utilisateurs;
 
 /**
  * Servlet implementation class SupprimerProfil
@@ -38,9 +40,8 @@ public class SupprimerProfil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doDelete(request, response);
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -53,7 +54,17 @@ public class SupprimerProfil extends HttpServlet {
 	{
 		// TODO : récuperer l'utilisateur connecté via la variable de session, puis le supprimer
 		
-		bll.delete();
+		HttpSession session = request.getSession();
+		int idutilActual = 0;
+		if(session != null) {
+			idutilActual = (int) session.getAttribute("IdUtilisateur");
+		}
+		
+		bll.delete(idutilActual);
+		
+		session.setAttribute("userConnected", false);
+		
+		request.getRequestDispatcher("/Accueil").forward(request, response);
 	}
 	
 	
