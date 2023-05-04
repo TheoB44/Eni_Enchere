@@ -21,10 +21,13 @@
 		Code postal : ${Utilisateur.code_postal}<br> 
 		Ville : ${Utilisateur.ville} <br>
 	</div>
-	<c:if"${MonProfil}">
+	<% if((boolean)(request.getAttribute("MonProfil")))
+	{
+		%>
+	
 		<button
 			onclick="window.location.href = '${pageContext.request.contextPath}/ModifierProfil'">Modifier</button>
-	</c:if>
+		<%}%>
 
 </body>
 </html>
