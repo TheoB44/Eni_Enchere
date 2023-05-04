@@ -19,6 +19,8 @@ public class Articles_Vendus {
 	private Categories categorie;
 	
 	
+	public Articles_Vendus() {
+	}
 
 
 	public Articles_Vendus(int no_article, String nom_article, String description, Date date_debut_enchere,

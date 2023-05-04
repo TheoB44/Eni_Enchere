@@ -1,11 +1,21 @@
 package fr.eni.enchere.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import BLL.CategorieBLL;
+import BLL.EncheresBLL;
+import BO.Categories;
+import BO.Encheres;
+import BO.Utilisateurs;
 
 /**
  * Servlet implementation class Accueil
@@ -14,6 +24,15 @@ import javax.servlet.http.HttpServletResponse;
 public class Accueil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+	private EncheresBLL bllEncheres;
+	private CategorieBLL bllCategories;
+	
+	@Override
+	public void init() throws ServletException {
+		bllEncheres = new EncheresBLL();
+		bllCategories = new CategorieBLL();
+	}
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -26,7 +45,29 @@ public class Accueil extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		List<Encheres> listeEncheres = new ArrayList();
+		List<Categories> listeCategories = new ArrayList();
+		
+		if(request.getAttribute("listeEncheresPost") != null) {
+			request.setAttribute("listeEncheres", request.getAttribute("listeEncheresPost"));
+		}
+		else {
+			request.setAttribute("listeEncheres", bllEncheres.listeEncheres());
+		}
+		
+		if(request.getAttribute("listeCategoriesPost") != null) {
+			request.setAttribute("listeCategories", request.getAttribute("listeCategoriesPost"));
+		}
+		else {
+			request.setAttribute("listeCategories", bllCategories.listeCategories());
+		}
+		
+		HttpSession session = request.getSession();
+		if(session != null) {
+			request.setAttribute("userConnected",true);
+			request.setAttribute("util", session.getAttribute("currentUser"));
+		}
+		
 		request.getRequestDispatcher("/WEB-INF/Accueil.jsp").forward(request, response);
 	}
 
@@ -34,7 +75,14 @@ public class Accueil extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		String searchNomArticle = request.getParameter("searchNomArticle");
+		String categorieEnchere = request.getParameter("categorieEnchere");
+		
+		if(searchNomArticle != null && categorieEnchere != null) {
+			request.setAttribute("listeEncheresPost", bllEncheres.listeEncheresSearch(searchNomArticle, categorieEnchere));
+			request.setAttribute("listeCategoriesPost", bllCategories.listeCategories());
+		}
+		
 		doGet(request, response);
 	}
 
