@@ -13,8 +13,9 @@ import BO.Utilisateurs;
 
 public class EncheresDAOJdbcImpl implements EncheresDAO {
 
-	private static final String SELECT_ALL = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo FROM ENCHERES E"
+	private static final String SELECT_ALL = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, V.pseudo, A.no_utilisateur FROM ENCHERES E"
 			+ " LEFT JOIN ARTICLES_VENDUS A ON A.no_article = E.no_article"
+			+ " LEFT JOIN UTILISATEURS V ON A.no_utilisateur = V.no_utilisateur"
 			+ " LEFT JOIN UTILISATEURS U ON U.no_utilisateur = E.no_utilisateur;";
 
 	private static final String SELECT_SEARCH_ALL = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo FROM ENCHERES E"
@@ -93,6 +94,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 					Articles_Vendus article = new Articles_Vendus();
 					article.setNom_article(rs.getString("nom_article"));
 					article.setDate_fin_enchere(rs.getDate("date_fin_enchere"));
+					article.setNo_utilisateur(rs.getInt("no_utilisateur"));
 					Utilisateurs util = new Utilisateurs();
 					util.setPseudo(rs.getString("pseudo"));
 					encheres.setArticle(article);

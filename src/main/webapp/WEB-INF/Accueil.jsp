@@ -16,9 +16,9 @@
 	<div id="ListeEnchere-Lien">
 		<a href="${pageContext.request.contextPath}/Encherir">Enchère </a> 
 		<a href="${pageContext.request.contextPath}/NouvelleVente">Vendre un article</a>
-			<form  method = "get" action="MonProfil">
-				<button>Mon Profil	</button>
-				<input type="hidden" value="${Id_Utils}" name="IDUtilisateur" id="IDUtilisateur"/> 
+			<form  method = "get" action="MonProfil" value="true" name="MyProfil" id="MyProfil">
+				<button >Mon Profil	</button>
+				<input type="hidden" value="${Id_Utils}" name="IDUtilisateur" id="IDUtilisateur"/>
 			</form>
 		<a href="${pageContext.request.contextPath}/Accueil">Déconnexion</a>
 	</div>
@@ -60,8 +60,8 @@
 					<p class="card-text">Prix : ${current.montant_enchere} points</p>
 					<p class="card-text">Fin de l'enchère :
 						${current.article.date_fin_enchere}</p>
-					Vendeur :<a href="#" class="card-text">
-						${current.utilisateur.pseudo}</a>
+					Vendeur :<a name="idVendeur" id="idVendeur" href="${pageContext.request.contextPath}/MonProfil?idVendeur=${current.article.no_utilisateur}" class="card-text">${current.utilisateur.pseudo}</a>
+
 				</div>
 			</div>
 
