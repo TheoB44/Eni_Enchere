@@ -49,9 +49,9 @@
 			<input type="text"></input>
 		</div>
 
-		<button onclick = "window.location.href = '${pageContext.request.contextPath}/ListeEncheres'">Enregistrer</button>
-		<button onclick = "window.location.href = '${pageContext.request.contextPath}/ListeEncheres'">Annuler</button>
-		<button onclick = "window.location.href = '${pageContext.request.contextPath}/ListeEncheres'">Annuler la vente</button>
+		<button onclick = "window.location.href = '${pageContext.request.contextPath}/Accueil'">Enregistrer</button>
+		<button onclick = "window.location.href = '${pageContext.request.contextPath}/Accueil'">Annuler</button>
+		<button onclick = "window.location.href = '${pageContext.request.contextPath}/Accueil'">Annuler la vente</button>
 
 	</div>
 
