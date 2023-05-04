@@ -11,7 +11,7 @@
 <body>
 	<h1>ENI-Enchères ${util.pseudo}</h1>
 
-	<div id="Inscription-connexion" href="">S'inscrire - Se connecter</div>
+	<div id="Inscription-connexion" ><a href="${pageContext.request.contextPath}/Connexion" >S'inscrire - Se connecter</a></div>
 
 	<div id="ListeEnchere-Lien">
 		<a href="${pageContext.request.contextPath}/Encherir">Enchère </a> 
