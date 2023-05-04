@@ -27,5 +27,15 @@ public class UtilisateurBLL {
 	{
 		dao.insert(util);
 	}
+	
+	public void update(Utilisateurs util)
+	{
+		dao.update(util);
+	}
+	
+	public void delete(int idUtil)
+	{
+		dao.delete(idUtil);
+	}
 
 }

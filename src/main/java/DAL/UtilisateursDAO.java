@@ -9,4 +9,5 @@ public interface UtilisateursDAO {
 	Utilisateurs Connexion(String indentifiant, String mdp);
 	void insert(Utilisateurs util);
 	void delete(int id);
+	void update(Utilisateurs util);
 }

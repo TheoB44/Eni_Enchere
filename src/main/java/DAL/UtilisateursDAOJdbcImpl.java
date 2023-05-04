@@ -15,6 +15,7 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 	private static final String SELECT_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur = ?;";
 	private static final String INSERT = "INSERT INTO UTILISATEURS(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 	private static final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?;";
+	private static final String UPDTATE = "UPDATE UTILISATEURS SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? WHERE no_utilisateur=?;";
 
 	@Override
 	public Utilisateurs Connexion(String identifiant, String mdp) {
@@ -124,4 +125,27 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 		}
 	}
 	
+	public void update(Utilisateurs util) {
+	
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+			PreparedStatement ps = cnx.prepareStatement(UPDTATE);
+			
+			//element à modifier
+			ps.setString(1, util.getPseudo());
+			ps.setString(2, util.getNom());
+			ps.setString(3, util.getPrenom());
+			ps.setString(4, util.getEmail());
+			ps.setString(5, util.getTelephone());
+			ps.setString(6, util.getRue());
+			ps.setString(7, util.getCode_postal());
+			ps.setString(8, util.getVille());
+			ps.setString(9, util.getMot_de_passe());
+			//Condition
+			ps.setInt(10, util.getNo_utilisateurs());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	
+	}
 }
