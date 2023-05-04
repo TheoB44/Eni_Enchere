@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,45 +12,55 @@
 	<h1>ENI-Enchères</h1>
 
 	<div id="Inscription-connexion" href="">S'inscrire - Se connecter</div>
-	
-	
+
+
 	<div id="Titre-Centre">Liste des enchères</div>
-	
-	
-	<div>
-		Filtres : <br> 
-		<input type="text" placeholder=" Le nom de l'article contient"></input>
-		<br> 
-		<br> Catégorie : <select name="Encheres"
-			id="Enchere-select">
-			<option value="all">Toutes</option>
-			<option value="all">Informatiques</option>
-			<option value="all">Ameublement</option>
-			<option value="all">Vêtement</option>
-			<option value="all">Sport&Loisir</option>
+
+	<form class="justify-content-center" method="post"
+		action="Accueil">
+		<div>
+			Filtres : <br>
+			<div class="input-group">
+				<input type="search"
+					placeholder="Le nom de l'article contient" name="searchNomArticle"> <span
+					class="input-group-append">
+				</span>
+			</div>
+			<br> <br> Catégorie : <select name="categorieEnchere"
+				id="categorieEnchere">
+				<option value="all">Toutes</option>
+				<c:forEach var="current" items="${listeCategories}">
+					<option value="${current.no_categorie}">${current.libelle}</option>
+				</c:forEach>
 			</select>
-	</div>
+		</div>
 
-	<div id="bouton">
-		<button>Rechercher</button>
-	</div>
-
-	<div id="Liste-Enchere">Afficher la liste des enchères ici.</div>
-	
+		<div id="bouton">
+			<button>Rechercher</button>
+		</div>
+	</form>
 	<br>
 
-	<c:forEach var="current" items="${liste.articles }">
-	
-	</c:forEach>
-	
-	<div class="card" style="width: 18rem;">
-	  <img class="card-img-top" src="..." alt="Card image cap">
-	  <div class="card-body">
-	    <h5 class="card-title">Card title</h5>
-	    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-	    <a href="#" class="btn btn-primary">Go somewhere</a>
-	  </div>
+	<div class="row">
+
+		<c:forEach var="current" items="${listeEncheres}">
+
+			<div class="card" style="width: 18rem;">
+				<img class="card-img-top" src="..." alt="Card image cap">
+				<div class="card-body">
+					<h6 class="card-title">${current.article.nom_article}</h6>
+					<p class="card-text">Prix : ${current.montant_enchere} points</p>
+					<p class="card-text">Fin de l'enchère :
+						${current.article.date_fin_enchere}</p>
+					Vendeur :<a href="#" class="card-text">
+						${current.utilisateur.pseudo}</a>
+				</div>
+			</div>
+
+		</c:forEach>
+
 	</div>
+
 
 </body>
 </html>

@@ -10,7 +10,7 @@
 <body>
 	<div id="connexion-container">
 
-		<h1>ENI-EnchËres</h1>
+		<h1>ENI-Ench√®res</h1>
 		<br>
 
 		<form class="row justify-content-center mb-2" method="post" action="Connexion">
@@ -30,17 +30,16 @@
 			<button name="connexion-btn" id="connexion-btn">Connexion</button>
 
 			<div name="connexion-connexion" id="connexion-connexion">
-				<input type="checkbox"></input>
-				<p link="https://google.com">Mot de passe oubliÈ</p>
+	    <input type="checkbox"> Se souvenir de moi</input> <!-- Ici cr√©er un cookie avec les id -->
+				<p link="https://google.com">Mot de passe oubli√©</p>
 			</div>
 
 		</form>
 
 		<button
-			onclick="window.location.href = '${pageContext.request.contextPath}/Inscription'">CrÈer
+			onclick="window.location.href = '${pageContext.request.contextPath}/Inscription'">Cr√©er
 			un compte</button>
 
 	</div>
-
 </body>
 </html>

@@ -3,32 +3,32 @@ package BO;
 import java.util.Date;
 
 public class Encheres {
-	private int no_utilisateur;
-	private int no_article;
+	private Utilisateurs utilisateur;
+	private Articles_Vendus article;
 	private Date date_enchere;
 	private float montant_enchere;
 	
 	public Encheres() {
 	}
 	
-	public Encheres(int no_utilisateur, int no_article, Date date_enchere, float montant_enchere) {
+	public Encheres(Utilisateurs utilisateur, Articles_Vendus article, Date date_enchere, float montant_enchere) {
 		super();
-		this.no_utilisateur = no_utilisateur;
-		this.no_article = no_article;
+		this.utilisateur = utilisateur;
+		this.article = article;
 		this.date_enchere = date_enchere;
 		this.montant_enchere = montant_enchere;
 	}
 
 
 
-	public int getNo_utilisateur() {
-		return no_utilisateur;
+	public Utilisateurs getutilisateur() {
+		return utilisateur;
 	}
 
 
 
-	public int getNo_article() {
-		return no_article;
+	public Articles_Vendus getarticle() {
+		return article;
 	}
 
 
@@ -43,12 +43,12 @@ public class Encheres {
 		return montant_enchere;
 	}
 
-	public void setNo_utilisateur(int no_utilisateur) {
-		this.no_utilisateur = no_utilisateur;
+	public void setUtilisateur(Utilisateurs utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 
-	public void setNo_article(int no_article) {
-		this.no_article = no_article;
+	public void setArticle(Articles_Vendus article) {
+		this.article = article;
 	}
 
 	public void setDate_enchere(Date date_enchere) {
@@ -59,10 +59,6 @@ public class Encheres {
 		this.montant_enchere = montant_enchere;
 	}
 
-	
-	
-	
-	
-	
+
 	
 }

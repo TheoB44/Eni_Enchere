@@ -1,5 +1,8 @@
 package BLL;
 
+import java.util.List;
+
+import BO.Encheres;
 import DAL.DAOFactory;
 import DAL.EncheresDAO;
 
@@ -7,12 +10,16 @@ public class EncheresBLL {
 
 	private EncheresDAO dao;
 
-	public UtilisateurBLL() {
-		dao = DAOFactory.getUtilDAO();
+	public EncheresBLL() {
+		dao = DAOFactory.getEncheresDAO();
 	}
 	
-	public Utilisateurs connexion(String id, String mdp) {
-		return dao.Connexion(id, mdp);
+	public List<Encheres> listeEncheres() {
+		return dao.SelectAll();
+	}
+	
+	public List<Encheres> listeEncheresSearch(String nomArticle, String noCate) {
+		return dao.Search(nomArticle, noCate);
 	}
 	
 }
