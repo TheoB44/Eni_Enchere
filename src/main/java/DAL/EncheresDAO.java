@@ -11,5 +11,7 @@ public interface EncheresDAO {
 	List<Encheres> Search(String nomArticle, String noCate);
 	
 	List<Encheres> SearchConnected(String nomArticle, String noCate, int noUtil, List<String> etatVente, String type);
+	
+
 
 }

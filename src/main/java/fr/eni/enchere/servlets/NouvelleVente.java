@@ -55,17 +55,31 @@ public class NouvelleVente extends HttpServlet {
 
 		HttpSession session = request.getSession();
 		List<Categories> listeCategories = new ArrayList();
+		int idArticle = 0;
+		Articles_Vendus article = null;
+		
+		var test = request.getAttribute("IsAlreadyCreated") != null && request.getAttribute("IsAlreadyCreated") != "" ? (boolean) request.getAttribute("IsAlreadyCreated") : false;
 
-		if ((boolean) request.getAttribute("IsAlreadyCreated")) {
+		if (test) {
+			
+			String pidArticle = request.getParameter("idArticle");
+			
+			if (pidArticle != null && !pidArticle.isBlank()) {
 
+				idArticle = Integer.valueOf(pidArticle);
+			}
+			
+			if(idArticle > 0) {
+				article = ArticleBll.getArticleById(idArticle);
+				request.setAttribute("article", article);
+			}
 		} 
-		else 
-		{
+
 			var adresse = bll.getAdressById((int) session.getAttribute("IdUtilisateur"));
 			request.setAttribute("Adresse", adresse);
 			var t = bllCategories.listeCategories();
 			request.setAttribute("listeCategories", t);
-		}
+			request.setAttribute("IsAlreadyCreated", test);
 
 		request.getRequestDispatcher("/WEB-INF/NouvelleVente.jsp").forward(request, response);
 	}
@@ -126,11 +140,35 @@ public class NouvelleVente extends HttpServlet {
 				 */
 			}
 
-			if (idCategorie > 0) {
+			if (idCategorie > 0 && prixInitial > 0 && dateDeb != null && dateDeFin != null) {
+				
 				article = new Articles_Vendus(0, nomArticle, description, dateDeb, dateDeFin, prixInitial, 0, idVendeur,
 						idCategorie, null, null, null, null);
 
-				var vretour = ArticleBll.insert(article);
+				
+				boolean vretour = false;
+				boolean modifier = false;
+				
+				String pModifier = request.getParameter("Modifier");
+				
+				if(pModifier != null && !pModifier.isBlank())
+					modifier = Boolean.valueOf(pModifier);
+				
+				if(modifier)
+				{
+					int idArticle = 0;
+					String pidArticle = request.getParameter("idArticle");
+					
+					if(pidArticle != null && !pidArticle.isBlank())
+						idArticle = Integer.valueOf(pidArticle);
+					article.setNo_article(idArticle);
+					
+					vretour = ArticleBll.update(article);
+				}
+				else
+					vretour = ArticleBll.insert(article);
+				
+				
 				if (vretour) {
 					request.getRequestDispatcher("/Accueil").forward(request, response);
 				} else {
