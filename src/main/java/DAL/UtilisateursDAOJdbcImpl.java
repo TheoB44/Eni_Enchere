@@ -23,7 +23,38 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 	private static final String UPDTATE = "UPDATE UTILISATEURS SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? WHERE no_utilisateur=?;";
 	private static final String SELECT_ARTICLE_UTILISATEUR = "SELECT no_article FROM ARTICLES_VENDUS WHERE no_utilisateur=?";
 	private static final String SELECT_TEST_PSEUDO_MAIL_EXIST = "SELECT no_utilisateur FROM UTILISATEURS WHERE pseudo = ? or email = ?";
+	private static final String SELECT_ADRESSE_UTILISATEUR = "SELECT rue, code_postal, ville FROM UTILISATEURS WHERE no_utilisateur = ?";
+	
+	public Utilisateurs getAdressById(int idUtil)
+	{
+		Utilisateurs resultat = null;
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+		
+		PreparedStatement ps = cnx.prepareStatement(SELECT_ADRESSE_UTILISATEUR);
 
+			ps.setInt(1, idUtil);
+			
+			ResultSet rs = ps.executeQuery();
+			if (rs != null) {
+				resultat = new Utilisateurs();
+				while (rs.next()) {
+					resultat.setRue(rs.getString("rue"));
+					resultat.setVille(rs.getString("ville"));
+					resultat.setCode_postal(rs.getString("code_postal"));
+				}
+			}
+		}catch (Exception e) {
+			
+		}
+		return resultat;
+	}
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public Utilisateurs Connexion(String identifiant, String mdp) {
 		Utilisateurs resultat = null;

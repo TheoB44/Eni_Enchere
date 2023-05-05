@@ -11,4 +11,5 @@ public interface UtilisateursDAO {
 	void delete(int id);
 	void update(Utilisateurs util);
 	boolean testPseudoAndMail(String pseudo, String mail);
+	Utilisateurs getAdressById(int idUtil);
 }

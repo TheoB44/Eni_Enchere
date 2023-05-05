@@ -11,16 +11,22 @@
 <body>
 	<h1>ENI-Enchères</h1>
 
-
 	<c:if test="${userConnected}">
 		<div id="ListeEnchere-Lien">
-		<a href="${pageContext.request.contextPath}/Encherir">Enchère </a> 
-		<a href="${pageContext.request.contextPath}/NouvelleVente">Vendre un article</a>
+			<form  method = "get" action="Encherir" name="Encherir" id="Encherir">
+				<button >Ench�re</button>
+			</form>
+
+			<form  method = "get" action="NouvelleVente" name="NouvelleVente" id="NouvelleVente">
+				<button >Vendre un article</button>
+			</form>
+
 			<form  method = "get" action="MonProfil" value="true" name="MyProfil" id="MyProfil">
 				<button >Mon Profil	</button>
 				<input type="hidden" value="${Id_Utils}" name="IDUtilisateur" id="IDUtilisateur"/>
 			</form>
-		<form  method = "get" action="Deconnexion">
+			
+			<form  method = "get" action="Deconnexion">
 				<button >Deconnexion</button>
 			</form>
 	</div>

@@ -42,5 +42,9 @@ public class UtilisateurBLL {
 	{
 		return dao.testPseudoAndMail(pseudo, mail);
 	}
+	
+	public Utilisateurs getAdressById(int IdUtil) {
+		return dao.getAdressById(IdUtil);
+	}
 
 }

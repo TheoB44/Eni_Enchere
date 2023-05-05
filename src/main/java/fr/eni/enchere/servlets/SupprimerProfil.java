@@ -62,7 +62,10 @@ public class SupprimerProfil extends HttpServlet {
 		
 		bll.delete(idutilActual);
 		
-		session.setAttribute("userConnected", false);
+
+		session.removeAttribute("currentUser");
+		session.removeAttribute("IdUtilisateur");
+		session.removeAttribute("userConnected");
 		
 		request.getRequestDispatcher("/Accueil").forward(request, response);
 	}
