@@ -22,4 +22,8 @@ public class EncheresBLL {
 		return dao.Search(nomArticle, noCate);
 	}
 	
+	public List<Encheres> listeEncheresSearchConnected(String nomArticle, String noCate, int noUtil, List<String> etatVente, String type) {
+		return dao.SearchConnected(nomArticle, noCate, noUtil, etatVente, type);
+	}
+	
 }

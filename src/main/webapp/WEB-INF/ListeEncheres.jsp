@@ -31,7 +31,8 @@
 		<select name="categorie" id="categorie">
 			<option value="all">Toutes</option>
 			<option value="autres">Autres</option>
-		</select> <input type="radio" name="achatVente"> Achats</input>
+		</select> 
+		<input type="radio" name="achatVente"> Achats</input>
 		<div id="checkAchats">
 			<input type="checkbox"> enchères ouvertes</input> <input
 				type="checkbox"> mes enchères</input> <input type="checkbox">mes
