@@ -63,10 +63,14 @@ public class Accueil extends HttpServlet {
 		}
 		
 		HttpSession session = request.getSession();
-		if(session != null) {
-			request.setAttribute("userConnected",true);
+		Object loginFlag = session.getAttribute("userConnected");
+		if(loginFlag != null && loginFlag.equals(true)) {
 			request.setAttribute("util", session.getAttribute("currentUser"));
 		}
+		else {
+			request.setAttribute("userConnected",false);
+		}
+		
 		
 		request.getRequestDispatcher("/WEB-INF/Accueil.jsp").forward(request, response);
 	}
@@ -78,9 +82,38 @@ public class Accueil extends HttpServlet {
 		String searchNomArticle = request.getParameter("searchNomArticle");
 		String categorieEnchere = request.getParameter("categorieEnchere");
 		
-		if(searchNomArticle != null && categorieEnchere != null) {
-			request.setAttribute("listeEncheresPost", bllEncheres.listeEncheresSearch(searchNomArticle, categorieEnchere));
+		String radio = request.getParameter("achatVente");
+		
+		HttpSession session = request.getSession();
+		Utilisateurs user = (Utilisateurs) session.getAttribute("currentUser");
+		List<String> etatVente = new ArrayList();
+		
+		if(radio != null) {
+			if(radio.equals("achat")) {
+				String enchereOuverte = request.getParameter("enchereOuverte");
+				String mesEncheres = request.getParameter("mesEncheres");
+				String enchereRemporte = request.getParameter("enchereRemporte");
+				if(enchereOuverte != null) {etatVente.add(enchereOuverte);};
+				if(mesEncheres != null) {etatVente.add(mesEncheres);};
+				if(enchereRemporte != null) {etatVente.add(enchereRemporte);};
+				request.setAttribute("listeEncheresPost", bllEncheres.listeEncheresSearchConnected(searchNomArticle, categorieEnchere, user.getNo_utilisateurs(),etatVente, radio));
+			}
+			else {
+				String checkVenteEC = request.getParameter("checkVenteEC");
+				String checkVenteDebute = request.getParameter("checkVenteDebute");
+				String checkVenteTermine = request.getParameter("checkVenteTermine");
+				if(checkVenteEC != null) {etatVente.add(checkVenteEC);};
+				if(checkVenteDebute != null) {etatVente.add(checkVenteDebute);};
+				if(checkVenteTermine != null) {etatVente.add(checkVenteTermine);};
+				request.setAttribute("listeEncheresPost", bllEncheres.listeEncheresSearchConnected(searchNomArticle, categorieEnchere, user.getNo_utilisateurs(),etatVente, radio));
+			}
 			request.setAttribute("listeCategoriesPost", bllCategories.listeCategories());
+		}
+		else {
+			if(searchNomArticle != null && categorieEnchere != null) {
+				request.setAttribute("listeEncheresPost", bllEncheres.listeEncheresSearch(searchNomArticle, categorieEnchere));
+				request.setAttribute("listeCategoriesPost", bllCategories.listeCategories());
+			}
 		}
 		
 		doGet(request, response);
