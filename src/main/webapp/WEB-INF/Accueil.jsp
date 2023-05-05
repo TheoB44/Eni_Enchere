@@ -114,9 +114,9 @@
 			<div class="card" style="width: 18rem;">
 				<img class="card-img-top" src="..." alt="Card image cap">
 				<div class="card-body">
-					<h6 class="card-title">${current.article.nom_article}</h6>
+					<h6 class="card-title" href="${pageContext.request.contextPath}/RedirectEnchere?idVendeur=${current.article.no_utilisateur}")>${current.article.nom_article}</h6>
 					<p class="card-text">Prix : ${current.montant_enchere} points</p>
-					<p class="card-text">Fin de l'enchÃ¨re :
+					<p class="card-text">Fin de l'enchère :
 						${current.article.date_fin_enchere}</p>
 					Vendeur :<a name="idVendeur" id="idVendeur" href="${pageContext.request.contextPath}/MonProfil?idVendeur=${current.article.no_utilisateur}" class="card-text">${current.utilisateur.pseudo}</a>
 

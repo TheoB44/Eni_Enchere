@@ -22,7 +22,7 @@ import BO.Utilisateurs;
  */
 @WebServlet("/Accueil")
 public class Accueil extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private final long serialVersionUID = 1L;
        
 	private EncheresBLL bllEncheres;
 	private CategorieBLL bllCategories;
