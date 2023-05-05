@@ -43,6 +43,10 @@ public class Connexion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+		request.setAttribute("ErreurConnexion", false);
+		
 		String identifiant = request.getParameter("connexion_identifiant");
 		String mdp = request.getParameter("connexion_mdp");
 		Utilisateurs util = new Utilisateurs();
@@ -55,10 +59,17 @@ public class Connexion extends HttpServlet {
 		}
 		
 		if(util.getNo_utilisateurs() > 0) {
-			HttpSession session = request.getSession();
+			session = request.getSession();
 			session.setAttribute("currentUser", util);
-			session.setAttribute("userConnected",true);
+
+			session.setAttribute("IdUtilisateur", util.getNo_utilisateurs());
+			session.setAttribute("userConnected", true);
+      
 			request.getRequestDispatcher("/Accueil").forward(request, response);
+		}else
+		{
+			request.setAttribute("ErreurConnexion", true);
+			request.getRequestDispatcher("/WEB-INF/Connexion.jsp").forward(request, response);
 		}
 		
 	}
