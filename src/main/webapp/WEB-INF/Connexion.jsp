@@ -7,11 +7,19 @@
 <title>Insert title here</title>
 <jsp:include page="fragments/meta.html"></jsp:include>
 </head>
-<body>
+<body >
 	<div id="connexion-container">
 
 		<h1>ENI-Enchères</h1>
 		<br>
+
+		<div id = "erreurConnexion">
+		
+		
+		
+		<input type="hidden" value = "${ErreurConnexion}" id="IsErreurConnexion">
+		
+		</div>
 
 		<form class="row justify-content-center mb-2" method="post" action="Connexion">
 
@@ -29,7 +37,7 @@
 
 			<button name="connexion-btn" id="connexion-btn">Connexion</button>
 
-			<div name="connexion-connexion" id="connexion-connexion">
+			<div name="connexion-connexion" id="connexion-connexion" >
 	    <input type="checkbox"> Se souvenir de moi</input> <!-- Ici créer un cookie avec les id -->
 				<p link="https://google.com">Mot de passe oublié</p>
 			</div>
@@ -41,5 +49,24 @@
 			un compte</button>
 
 	</div>
+	
+	<script>
+
+		var connexionErreur = document.getElementById("IsErreurConnexion").value != "" ? document.getElementById("IsErreurConnexion").value : false;
+		
+		if(connexionErreur)
+		{
+			//document.getElementById("erreurConnexion").disable = false;*
+			alert("Pseudo ou mot de passe oubli� !");
+		}
+
+
+</script>
+	
+	
+	
 </body>
 </html>
+
+
+
