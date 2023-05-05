@@ -13,14 +13,6 @@
 		<h1>ENI-Enchères</h1>
 		<br>
 
-		<div id = "erreurConnexion">
-		
-		
-		
-		<input type="hidden" value = "${ErreurConnexion}" id="IsErreurConnexion">
-		
-		</div>
-
 		<form class="row justify-content-center mb-2" method="post" action="Connexion">
 
 			<div name="connexion-identifiant" id="connexion-identifiant">
