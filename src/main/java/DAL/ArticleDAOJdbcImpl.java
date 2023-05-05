@@ -13,6 +13,41 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 
 	
 	private static final String INSERT = "INSERT INTO ARTICLES_VENDUS(nom_article,description,date_debut_enchere,date_fin_enchere,prix_initial,prix_vente,no_utilisateur,no_categorie,etat_vente,image) VALUES (?,?,?,?,?,?,?,?,?,?);";
+	private static final String SELECT_ARTICLE_BY_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article = ?";
+	
+	
+	public Articles_Vendus getArticleById(int idArticle)
+	{
+		Articles_Vendus resultat = null;
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+		
+		PreparedStatement ps = cnx.prepareStatement(SELECT_ARTICLE_BY_ID);
+
+			ps.setInt(1, idArticle);
+			
+			ResultSet rs = ps.executeQuery();
+			if (rs != null) {
+				resultat = new Articles_Vendus();
+				while (rs.next()) {
+					resultat.setNo_article(idArticle);
+					resultat.setNo_categorie(rs.getInt("no_categorie"));
+					resultat.setNom_article(rs.getString("nom_article"));
+					resultat.setDescription(rs.getString("description"));
+					resultat.setDate_debut_enchere(rs.getDate("date_debut_enchere"));
+					resultat.setDate_fin_enchere(rs.getDate("date_fin_enchere"));
+					resultat.setPrix_initial(rs.getFloat("prix_initial"));
+					resultat.setPrix_vente(rs.getFloat("prix_vente"));
+					resultat.setEtat_vente(rs.getString("etat_vente"));
+					resultat.setImage(rs.getString("image"));
+					resultat.setNo_utilisateur(rs.getInt("no_utilisateur"));
+				}
+			}
+		}catch (Exception e) {
+			
+		}
+		return resultat;
+	}
+	
 	
 	@Override
 	public boolean insert(Articles_Vendus article) {

@@ -19,4 +19,11 @@ public class ArticleBLL {
 	{
 		return dao.insert(article);
 	}
+	
+	public Articles_Vendus getArticleById(int idArticle)
+	{
+		return dao.getArticleById(idArticle);
+	}
+	
+	
 }
