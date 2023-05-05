@@ -37,5 +37,10 @@ public class UtilisateurBLL {
 	{
 		dao.delete(idUtil);
 	}
+	
+	public boolean testPseudoAndMail(String pseudo, String mail)
+	{
+		return dao.testPseudoAndMail(pseudo, mail);
+	}
 
 }

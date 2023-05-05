@@ -22,9 +22,8 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 	private static final String DELETERETRAITS = "DELETE FROM RETRAITS WHERE no_article = ?;";
 	private static final String UPDTATE = "UPDATE UTILISATEURS SET pseudo = ?, nom = ?, prenom = ?, email = ?, telephone = ?, rue = ?, code_postal = ?, ville = ?, mot_de_passe = ? WHERE no_utilisateur=?;";
 	private static final String SELECT_ARTICLE_UTILISATEUR = "SELECT no_article FROM ARTICLES_VENDUS WHERE no_utilisateur=?";
-	
-	
-	
+	private static final String SELECT_TEST_PSEUDO_MAIL_EXIST = "SELECT no_utilisateur FROM UTILISATEURS WHERE pseudo = ? or email = ?";
+
 	@Override
 	public Utilisateurs Connexion(String identifiant, String mdp) {
 		Utilisateurs resultat = null;
@@ -103,7 +102,7 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 			ps.setString(7, util.getCode_postal());
 			ps.setString(8, util.getVille());
 			ps.setString(9, util.getMot_de_passe());
-			ps.setInt(10, 0);
+			ps.setInt(10, 100);
 			ps.setBoolean(11, util.isAdministrateur());
 
 			// 4e etape : execution de la requete et interpretation des resultats
@@ -128,35 +127,34 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 
 	private void deleteEnchere(int no_util) {
 		try (Connection cnx = ConnectionProvider.getConnection();) {
-				
+
 			cnx.setAutoCommit(false);
-			
-				PreparedStatement ps = cnx.prepareStatement(SELECT_ARTICLE_UTILISATEUR);
 
-				ps.setInt(1, no_util);
+			PreparedStatement ps = cnx.prepareStatement(SELECT_ARTICLE_UTILISATEUR);
 
-				ResultSet rs = ps.executeQuery();
-				List<Integer> resultat= new ArrayList<Integer>();
-				int i = 1;
-				while (rs.next()) {
-					resultat.add(rs.getInt(i));
-					i++;
-				}
-			
-			
+			ps.setInt(1, no_util);
+
+			ResultSet rs = ps.executeQuery();
+			List<Integer> resultat = new ArrayList<Integer>();
+			int i = 1;
+			while (rs.next()) {
+				resultat.add(rs.getInt(i));
+				i++;
+			}
+
 			for (Integer integer : resultat) {
 				PreparedStatement ps2 = cnx.prepareStatement(DELETEENCHERE);
-				ps2.setInt(1,integer.intValue());
+				ps2.setInt(1, integer.intValue());
 				ps2.executeUpdate();
-				
+
 				cnx.commit();
-				
+
 				PreparedStatement ps3 = cnx.prepareStatement(DELETERETRAITS);
-				ps2.setInt(1,integer.intValue());
+				ps2.setInt(1, integer.intValue());
 				ps2.executeUpdate();
-				
+
 				cnx.commit();
-				
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -165,13 +163,13 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 
 	private void deleteArticles(int no_util) {
 		try (Connection cnx = ConnectionProvider.getConnection();) {
-			
+
 			cnx.setAutoCommit(false);
-			
+
 			PreparedStatement ps = cnx.prepareStatement(DELETEARTICLE);
 			ps.setInt(1, no_util);
 			ps.executeUpdate();
-			
+
 			cnx.commit();
 
 		} catch (SQLException e) {
@@ -181,7 +179,7 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 
 	private void deleteUtil(int no_util) {
 		try (Connection cnx = ConnectionProvider.getConnection();) {
-			
+
 			PreparedStatement ps = cnx.prepareStatement(DELETEUTILISATEUR);
 			ps.setInt(1, no_util);
 			ps.executeUpdate();
@@ -212,5 +210,24 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 			e.printStackTrace();
 		}
 
+	}
+
+	public boolean testPseudoAndMail(String pseudo, String mail) {
+		boolean vretour = false;
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+			PreparedStatement ps = cnx.prepareStatement(SELECT_TEST_PSEUDO_MAIL_EXIST);
+
+			ps.setString(1, pseudo);
+			ps.setString(2, mail);
+
+			ResultSet rs = ps.executeQuery();
+			if (rs != null && rs.next()) {
+				vretour = true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vretour;
 	}
 }
