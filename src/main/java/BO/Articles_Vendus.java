@@ -13,7 +13,7 @@ public class Articles_Vendus {
 	private float prix_vente;
 	private int no_utilisateur;
 	private int no_categorie;
-	private char etat_vente;
+	private String etat_vente;
 	private String image;
 	private Utilisateurs utilisateur;
 	private Categories categorie;
@@ -25,7 +25,7 @@ public class Articles_Vendus {
 
 	public Articles_Vendus(int no_article, String nom_article, String description, Date date_debut_enchere,
 			Date date_fin_enchere, float prix_initial, float prix_vente, int no_utilisateur, int no_categorie,
-			char etat_vente, String image, Utilisateurs utilisateur, Categories categorie) {
+			String etat_vente, String image, Utilisateurs utilisateur, Categories categorie) {
 		super();
 		this.no_article = no_article;
 		this.nom_article = nom_article;
@@ -88,7 +88,7 @@ public class Articles_Vendus {
 	}
 
 
-	public char getEtat_vente() {
+	public String getEtat_vente() {
 		return etat_vente;
 	}
 
@@ -163,7 +163,7 @@ public class Articles_Vendus {
 	}
 
 
-	public void setEtat_vente(char etat_vente) {
+	public void setEtat_vente(String etat_vente) {
 		this.etat_vente = etat_vente;
 	}
 

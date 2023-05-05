@@ -7,6 +7,7 @@ public abstract class DAOFactory {
 	private static UtilisateursDAO utilDAO;
 	private static EncheresDAO encheresDAO;
 	private static CategoriesDAO categoriesDAO;
+	private static ArticleDAO articleDAO;
 	
 	public static UtilisateursDAO getUtilDAO() {
 		if (utilDAO == null) {
@@ -28,4 +29,13 @@ public abstract class DAOFactory {
 		}
 		return categoriesDAO;
 	}
+	
+	public static ArticleDAO getArticleDAO() {
+		if (articleDAO == null) {
+			articleDAO = new ArticleDAOJdbcImpl();
+		}
+		return articleDAO;
+	}
+	
+	
 }
