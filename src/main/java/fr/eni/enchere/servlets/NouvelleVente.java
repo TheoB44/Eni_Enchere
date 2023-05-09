@@ -16,9 +16,11 @@ import javax.servlet.http.HttpSession;
 
 import BLL.ArticleBLL;
 import BLL.CategorieBLL;
+import BLL.RetraitsBLL;
 import BLL.UtilisateurBLL;
 import BO.Articles_Vendus;
 import BO.Categories;
+import BO.Retraits;
 
 /**
  * Servlet implementation class NouvelleVente
@@ -30,12 +32,14 @@ public class NouvelleVente extends HttpServlet {
 	private UtilisateurBLL bll;
 	private ArticleBLL ArticleBll;
 	private CategorieBLL bllCategories;
+	private RetraitsBLL retraitbll;
 
 	@Override
 	public void init() throws ServletException {
 		bll = new UtilisateurBLL();
 		ArticleBll = new ArticleBLL();
 		bllCategories = new CategorieBLL();
+		retraitbll = new RetraitsBLL();
 	}
 
 	/**
@@ -57,6 +61,7 @@ public class NouvelleVente extends HttpServlet {
 		List<Categories> listeCategories = new ArrayList();
 		int idArticle = 0;
 		Articles_Vendus article = null;
+		Retraits retrait = null;
 
 		var test = request.getAttribute("IsAlreadyCreated") != null && request.getAttribute("IsAlreadyCreated") != ""
 				? (boolean) request.getAttribute("IsAlreadyCreated")
@@ -74,9 +79,11 @@ public class NouvelleVente extends HttpServlet {
 			if (idArticle > 0) {
 				article = ArticleBll.getArticleById(idArticle);
 				request.setAttribute("article", article);
+				
+				retrait = retraitbll.selectRetraitById(idArticle);
+				request.setAttribute("retrait", retrait);
 			}
 		}
-
 		var adresse = bll.getAdressById((int) session.getAttribute("IdUtilisateur"));
 		request.setAttribute("Adresse", adresse);
 		var t = bllCategories.listeCategories();
@@ -170,8 +177,39 @@ public class NouvelleVente extends HttpServlet {
 						article.setNo_article(idArticle);
 
 						vretour = ArticleBll.update(article);
+						
+						
+						if(vretour)
+						{
+							Retraits retrait = new Retraits();
+							
+							retrait.setArticle(article);
+							retrait.setRue(rue);
+							retrait.setCode_postal(code_postal);
+							retrait.setVille(ville);
+							
+							vretour = retraitbll.update(retrait);
+						}
+						
+						
 					} else
+					{
 						vretour = ArticleBll.insert(article);
+						
+						if(vretour)
+						{
+							Retraits retrait = new Retraits();
+							
+							retrait.setArticle(article);
+							retrait.setRue(rue);
+							retrait.setCode_postal(code_postal);
+							retrait.setVille(ville);
+							
+							vretour = retraitbll.insert(retrait);
+						}
+						
+						
+					}
 
 					if (vretour) {
 						request.getRequestDispatcher("/Accueil").forward(request, response);

@@ -15,6 +15,8 @@
 
 		<form class="row justify-content-center mb-2" method="post" action="Connexion">
 
+<input type="hidden" value = "${ErreurConnexion}" name ="IsErreurConnexion" id = "IsErreurConnexion">
+
 			<div name="connexion-identifiant" id="connexion-identifiant">
 				<div id="connexion-divCo">
 					Identifiant : <input type="text" name="connexion_identifiant"></input>
