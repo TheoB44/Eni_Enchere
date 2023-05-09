@@ -54,6 +54,11 @@ public class RedirectEnchere extends HttpServlet {
 
 		if(monProfil) {
 			
+		request.setAttribute("idArticle", pidArticle);
+		request.setAttribute("IsAlreadyCreated", true);
+		
+		request.getRequestDispatcher("/NouvelleVente").forward(request, response);
+			
 		}
 		else {
 			request.setAttribute("idArticle", idArticle);

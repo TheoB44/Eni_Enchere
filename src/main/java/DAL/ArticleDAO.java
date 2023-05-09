@@ -10,4 +10,7 @@ public interface ArticleDAO {
 	
 	Articles_Vendus getArticleByIdAll(int idArticle);
 
+	boolean update(Articles_Vendus article);
+	
+	boolean delete(int idArticle);
 }

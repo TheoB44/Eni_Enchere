@@ -14,4 +14,5 @@ public interface EncheresDAO {
 	
 	Encheres topEnchere(int noArticle);
 
+
 }

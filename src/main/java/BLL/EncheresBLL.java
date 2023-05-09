@@ -30,4 +30,6 @@ public class EncheresBLL {
 		return dao.SearchConnected(nomArticle, noCate, noUtil, etatVente, type);
 	}
 	
+
+	
 }

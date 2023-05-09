@@ -53,6 +53,42 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 		return resultat;
 	}
 	
+	private static final String UPDATE = "UPDATE ARTICLES_VENDUS SET nom_article = ?, description = ?,date_debut_enchere = ?,date_fin_enchere = ?,prix_initial = ?,prix_vente = ?,no_utilisateur = ?,no_categorie = ?,etat_vente = ?,image = ? WHERE no_article = ?;";
+	private static final String DELETE_ARTICLE = "DELETE FROM ARTICLES_VENDUS WHERE no_article = ?";
+	
+	public boolean update(Articles_Vendus article)
+	{
+		boolean vretour= false;
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+
+			PreparedStatement ps = cnx.prepareStatement(UPDATE);
+
+			ps.setString(1, article.getNom_article());
+			ps.setString(2, article.getDescription());
+			ps.setDate(3, (Date) article.getDate_debut_enchere()); 
+			ps.setDate(4, (Date) article.getDate_fin_enchere());
+			ps.setFloat(5, article.getPrix_initial());
+			ps.setString(6, null);
+			ps.setInt(7, article.getNo_utilisateur());
+			ps.setInt(8, article.getNo_categorie());
+			ps.setString(9, "CR");
+			ps.setString(10, article.getImage());
+			
+			ps.setInt(11, article.getNo_article());
+
+			ps.executeUpdate();
+			
+			vretour = true;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return vretour;
+	}
+	
+	
+	
+	
 	public Articles_Vendus getArticleById(int idArticle)
 	{
 		Articles_Vendus resultat = null;
@@ -117,6 +153,27 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 			e.printStackTrace();
 		}
 		return vretour;
+	}
+	
+	public boolean delete(int idArticle)
+	{
+		boolean vretour = false;
+	try (Connection cnx = ConnectionProvider.getConnection();) {
+
+		cnx.setAutoCommit(false);
+
+		PreparedStatement ps = cnx.prepareStatement(DELETE_ARTICLE);
+		ps.setInt(1, idArticle);
+		ps.executeUpdate();
+
+		cnx.commit();
+		
+		vretour = true;
+
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	return vretour;
 	}
 
 

@@ -13,36 +13,36 @@ import BO.Utilisateurs;
 
 public class EncheresDAOJdbcImpl implements EncheresDAO {
 
-	private static final String SELECT_ALL = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, V.pseudo, A.no_utilisateur, A.no_article FROM ARTICLES_VENDUS A"
+
+	private static final String SELECT_ALL = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, V.pseudo, A.no_utilisateur, A.no_article, A.no_categorie FROM ARTICLES_VENDUS A"
 			+ " LEFT JOIN ENCHERES E ON E.no_article = A.no_article "
 			+ " LEFT JOIN UTILISATEURS V ON A.no_utilisateur = V.no_utilisateur"
 			+ " LEFT JOIN UTILISATEURS U ON U.no_utilisateur = E.no_utilisateur;";
 
-	private static final String SELECT_SEARCH = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo, A.no_article FROM ARTICLES_VENDUS A"
+	private static final String SELECT_SEARCH = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo, A.no_article, A.no_categorie FROM ARTICLES_VENDUS A"
 			+ " LEFT JOIN ENCHERES E ON E.no_article = A.no_article "
 			+ " LEFT JOIN UTILISATEURS U ON U.no_utilisateur = E.no_utilisateur"
 			+ " LEFT JOIN CATEGORIES C ON C.no_categorie = A.no_categorie"
 			+ " WHERE A.nom_article like ?;";
 	
-	private static final String SELECT_SEARCH_ARTICLE = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo, A.no_article FROM ARTICLES_VENDUS A"
+	private static final String SELECT_SEARCH_ARTICLE = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo, A.no_article, A.no_categorie FROM ARTICLES_VENDUS A"
 			+ " LEFT JOIN ENCHERES E ON E.no_article = A.no_article "
+
 			+ " LEFT JOIN UTILISATEURS U ON U.no_utilisateur = E.no_utilisateur"
-			+ " LEFT JOIN CATEGORIES C ON C.no_categorie = A.no_categorie"
-			+ " WHERE A.nom_article like ?"
+			+ " LEFT JOIN CATEGORIES C ON C.no_categorie = A.no_categorie" + " WHERE A.nom_article like ?"
 			+ " AND C.no_categorie = ?;";
-	
-	private static final String SELECT_SEARCH_CONNECTED = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo FROM ARTICLES_VENDUS A"
+
+
+	private static final String SELECT_SEARCH_CONNECTED = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo,A.no_article,A.no_categorie FROM ARTICLES_VENDUS A"
 			+ " LEFT JOIN ENCHERES E ON E.no_article = A.no_article "
 			+ " LEFT JOIN UTILISATEURS U ON U.no_utilisateur = E.no_utilisateur"
-			+ " LEFT JOIN CATEGORIES C ON C.no_categorie = A.no_categorie"
-			+ " WHERE A.nom_article like ?"
+			+ " LEFT JOIN CATEGORIES C ON C.no_categorie = A.no_categorie" + " WHERE A.nom_article like ?"
 			+ " AND C.no_categorie = ?";
-	
-	private static final String SELECT_SEARCH_CONNECTED_ALL = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo FROM ARTICLES_VENDUS A"
+
+	private static final String SELECT_SEARCH_CONNECTED_ALL = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo,A.no_article,A.no_categorie FROM ARTICLES_VENDUS A"
 			+ " LEFT JOIN ENCHERES E ON E.no_article = A.no_article "
 			+ " LEFT JOIN UTILISATEURS U ON U.no_utilisateur = E.no_utilisateur"
-			+ " LEFT JOIN CATEGORIES C ON C.no_categorie = A.no_categorie"
-			+ " WHERE A.nom_article like ?";
+			+ " LEFT JOIN CATEGORIES C ON C.no_categorie = A.no_categorie" + " WHERE A.nom_article like ?";
 	
 	private static final String SELECT_TOP_ENCHERE = "SELECT TOP(1) montant_enchere, U.pseudo FROM ENCHERES E"
 			+ " LEFT JOIN UTILISATEURS U ON U.no_utilisateur = E.no_utilisateur"
@@ -80,108 +80,105 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 	}
 	
 	@Override
-	public List<Encheres> SearchConnected(String nomArticle, String noCate, int noUtil, List<String> etatVente, String type) {
+	public List<Encheres> SearchConnected(String nomArticle, String noCate, int noUtil, List<String> etatVente,
+			String type) {
 		List<Encheres> resultat = new ArrayList();
 		// 1e etape : ouvrir la connexion a la bdd
 		try (Connection cnx = ConnectionProvider.getConnection();) {
 			PreparedStatement ps = null;
 			// 2e etape : preparer la requete SQL qu'on souhaite executer
 			String requete = null;
-			if(noCate.equals("all")){
+			if (noCate.equals("all")) {
 				requete = SELECT_SEARCH_CONNECTED_ALL;
-			}
-			else {
+			} else {
 				requete = SELECT_SEARCH_CONNECTED;
 			}
-			
-			if(type.equals("achat")) {
+
+			if (type.equals("achat")) {
 				List<String> elements = new ArrayList();
-				
-				if(etatVente.contains("enchereOuverte") || etatVente.size() == 0) {
+
+				if (etatVente.contains("enchereOuverte") || etatVente.size() == 0) {
 					String requetePart = "";
 					requetePart += " ( A.etat_vente = 'EC' )";
 					elements.add(requetePart);
 				}
-				
-				if(etatVente.contains("mesEncheres") || etatVente.size() == 0) {
+
+				if (etatVente.contains("mesEncheres") || etatVente.size() == 0) {
 					String requetePart = "";
-					requetePart += " ( E.no_utilisateur = " +noUtil + " )";
+					requetePart += " ( E.no_utilisateur = " + noUtil + " )";
 					elements.add(requetePart);
 				}
-				
-				if(etatVente.contains("enchereRemporte") || etatVente.size() == 0) {
+
+				if (etatVente.contains("enchereRemporte") || etatVente.size() == 0) {
 					String requetePart = "";
-					requetePart += " ( E.no_utilisateur = " +noUtil + " AND";
+					requetePart += " ( E.no_utilisateur = " + noUtil + " AND";
 					requetePart += " E.montant_enchere = A.prix_vente)";
 					elements.add(requetePart);
 				}
 
+				if (elements.size() > 0) {
 
-				if(elements.size()>0 ){
-					
 					requete += " AND (";
-					
+
 					for (int i = 0; i < elements.size(); i++) {
-						  requete += elements.get(i);
-						  if(i< elements.size()-1) {
-							  requete += " OR ";
-						  }
+						requete += elements.get(i);
+						if (i < elements.size() - 1) {
+							requete += " OR ";
 						}
-					
+					}
+
 					requete += " );";
 				}
-				
-			}
-			else {
-				
+
+			} else {
+
 				List<String> elements = new ArrayList();
-				
-				if(etatVente.contains("checkVenteEC") || etatVente.size() == 0) {
+
+				if (etatVente.contains("checkVenteEC") || etatVente.size() == 0) {
 					String requetePart = "";
-					requetePart += " ( A.no_utilisateur = " +noUtil;
+					requetePart += " ( A.no_utilisateur = " + noUtil;
 					requetePart += " AND A.etat_vente = 'EC' )";
 					elements.add(requetePart);
 				}
-				
-				if(etatVente.contains("checkVenteDebute") || etatVente.size() == 0) {
+
+				if (etatVente.contains("checkVenteDebute") || etatVente.size() == 0) {
 					String requetePart = "";
-					requetePart += " ( A.no_utilisateur = " +noUtil;
+					requetePart += " ( A.no_utilisateur = " + noUtil;
 					requetePart += " AND A.etat_vente = 'CR' )";
 					elements.add(requetePart);
 				}
-				
-				if(etatVente.contains("checkVenteTermine") || etatVente.size() == 0) {
+
+				if (etatVente.contains("checkVenteTermine") || etatVente.size() == 0) {
 					String requetePart = "";
-					requetePart += " ( A.no_utilisateur = " +noUtil;
+					requetePart += " ( A.no_utilisateur = " + noUtil;
 					requetePart += " AND A.etat_vente = 'VD' )";
 					elements.add(requetePart);
 				}
-				
-				if(elements.size()>0){
-					
+
+				if (elements.size() > 0) {
+
 					requete += " AND (";
-					
+
 					for (int i = 0; i < elements.size(); i++) {
-						  requete += elements.get(i);
-						  if(i< elements.size()-1) {
-							  requete += " OR ";
-						  }
+						requete += elements.get(i);
+						if (i < elements.size() - 1) {
+							requete += " OR ";
 						}
-					
+					}
+
 					requete += " );";
 				}
 
 			}
-			
+
 			ps = cnx.prepareStatement(requete);
 
 			// 3e etape : attribuer les parametres nécessaires à ma requête
-			
-			if(noCate.equals("all")){
-				ps.setString(1, "%"+ nomArticle +"%");
-			}
-			else {
-				ps.setString(2, "%"+ nomArticle +"%");
+
+			if (noCate.equals("all")) {
+				ps.setString(1, "%" + nomArticle + "%");
+			} else {
+				ps.setString(2, "%" + nomArticle + "%");
 				ps.setString(2, noCate);
 			}
 
@@ -195,6 +192,8 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 					Articles_Vendus article = new Articles_Vendus();
 					article.setNom_article(rs.getString("nom_article"));
 					article.setDate_fin_enchere(rs.getDate("date_fin_enchere"));
+					article.setNo_article(rs.getInt("no_article"));
+					article.setNo_categorie(rs.getInt("no_categorie"));
 					Utilisateurs util = new Utilisateurs();
 					util.setPseudo(rs.getString("pseudo"));
 					encheres.setArticle(article);
@@ -207,7 +206,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 		}
 		return resultat;
 	}
-	
+
 	@Override
 	public List<Encheres> Search(String nomArticle, String noCate) {
 		List<Encheres> resultat = new ArrayList();
@@ -215,18 +214,16 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 		try (Connection cnx = ConnectionProvider.getConnection();) {
 			PreparedStatement ps = null;
 			// 2e etape : preparer la requete SQL qu'on souhaite executer
-			if(noCate.equals("all"))
-			{
+			if (noCate.equals("all")) {
 				ps = cnx.prepareStatement(SELECT_SEARCH);
 
 				// 3e etape : attribuer les parametres nécessaires à ma requête
-				ps.setString(1, "%"+ nomArticle +"%");
-			}
-			else {
+				ps.setString(1, "%" + nomArticle + "%");
+			} else {
 				ps = cnx.prepareStatement(SELECT_SEARCH_ARTICLE);
 
 				// 3e etape : attribuer les parametres nécessaires à ma requête
-				ps.setString(1, "%"+ nomArticle +"%");
+				ps.setString(1, "%" + nomArticle + "%");
 				ps.setString(2, noCate);
 			}
 
@@ -241,6 +238,8 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 					article.setNom_article(rs.getString("nom_article"));
 					article.setNo_article(rs.getInt("no_article"));
 					article.setDate_fin_enchere(rs.getDate("date_fin_enchere"));
+					article.setNo_article(rs.getInt("no_article"));
+					article.setNo_categorie(rs.getInt("no_categorie"));
 					Utilisateurs util = new Utilisateurs();
 					util.setPseudo(rs.getString("pseudo"));
 					encheres.setArticle(article);
@@ -274,6 +273,8 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 					article.setNom_article(rs.getString("nom_article"));
 					article.setDate_fin_enchere(rs.getDate("date_fin_enchere"));
 					article.setNo_utilisateur(rs.getInt("no_utilisateur"));
+					article.setNo_article(rs.getInt("no_article"));
+					article.setNo_categorie(rs.getInt("no_categorie"));
 					Utilisateurs util = new Utilisateurs();
 					util.setPseudo(rs.getString("pseudo"));
 					encheres.setArticle(article);
@@ -286,4 +287,6 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 		}
 		return resultat;
 	}
+	
+
 }

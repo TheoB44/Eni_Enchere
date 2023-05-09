@@ -20,6 +20,13 @@ public class ArticleBLL {
 		return dao.insert(article);
 	}
 	
+
+	public boolean update(Articles_Vendus article)
+	{
+		return dao.update(article);
+	}
+	
+
 	public Articles_Vendus getArticleById(int idArticle)
 	{
 		return dao.getArticleById(idArticle);
@@ -28,6 +35,13 @@ public class ArticleBLL {
 	public Articles_Vendus getArticleByIdAll(int idArticle)
 	{
 		return dao.getArticleByIdAll(idArticle);
+	}
+	
+	
+}
+	public boolean delete(int idArticle)
+	{
+		return dao.delete(idArticle);
 	}
 	
 	
