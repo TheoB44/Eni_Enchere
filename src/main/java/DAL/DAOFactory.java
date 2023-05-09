@@ -5,6 +5,7 @@ import DAL.UtilisateursDAOJdbcImpl;
 
 public abstract class DAOFactory {
 	private static UtilisateursDAO utilDAO;
+	private static RetraitsDAO retraitsDAO;
 	private static EncheresDAO encheresDAO;
 	private static CategoriesDAO categoriesDAO;
 	private static ArticleDAO articleDAO;
@@ -14,6 +15,13 @@ public abstract class DAOFactory {
 			utilDAO = new UtilisateursDAOJdbcImpl();
 		}
 		return utilDAO;
+	}
+	
+	public static RetraitsDAO getRetraitsDAO() {
+		if (retraitsDAO == null) {
+			retraitsDAO = new RetraitsDAOJdbcImpl();
+		}
+		return retraitsDAO;
 	}
 	
 	public static EncheresDAO getEncheresDAO() {

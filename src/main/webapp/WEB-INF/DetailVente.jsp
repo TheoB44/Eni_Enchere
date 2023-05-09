@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,37 @@
 <body>
 	<h1>ENI-Enchères</h1>
 	
+	<c:if test="${userConnected}">
+		<div id="ListeEnchere-Lien">
+			<form method="get" action="Encherir" name="Encherir" id="Encherir">
+				<button>Enchère</button>
+			</form>
+
+			<form method="get" action="NouvelleVente" name="NouvelleVente"
+				id="NouvelleVente">
+				<button>Vendre un article</button>
+			</form>
+
+			<form method="get" action="MonProfil" value="true" name="MyProfil"
+				id="MyProfil">
+				<button>Mon Profil</button>
+				<input type="hidden" value="${Id_Utils}" name="IDUtilisateur"
+					id="IDUtilisateur" />
+			</form>
+
+			<form method="get" action="Deconnexion">
+				<button>Deconnexion</button>
+			</form>
+		</div>
+	</c:if>
+
+	<c:if test="${not userConnected}">
+		<div id="Inscription-connexion">
+			<a href="${pageContext.request.contextPath}/Connexion">S'inscrire
+				- Se connecter</a>
+		</div>
+	</c:if>
+	
 	<div id="Titre-Centre">Detail vente</div>
 	
 	<div id = "DetailVente-Image">
@@ -20,27 +52,28 @@
 	<div id = "DetailVente-Info">
 	
 	
-	<!-- A récupérer pour afficher -->
-	
-	<!--Nom de l'article -->
+	<p class="card-text">${article.nom_article}</p>
 	
 	<br>
-	Description : <!-- Description de l'article -->
+	<p class="card-text">Description :${article.description}</p>
 	<br>
 	
-	Catégorie : <!-- catégorie article -->
+	<p class="card-text">Catégorie : ${article.categorie.libelle}</p>
 	<br>
-	Meilleure offre : <!-- Meilleur offre -->
+	<p class="card-text">Meilleure offre : ${topEnchere.montant_enchere} par ${topEnchere.utilisateur.pseudo}  </p>
 	<br>
-	Mise à prix : <!-- offre de base -->
+	<p class="card-text">Mise à prix : ${article.prix_initial}</p>
 	<br>
-	Fin de l'enchère : <!-- date -->
+	<p class="card-text">Fin de l'enchère :  ${article.date_fin_enchere}</p>
+	
 	<br>
-	Retrait : <!-- adresse -->
+	<p class="card-text">Retrait : ${retrait.rue} ${retrait.code_postal} ${retrait.ville} </p>
 	<br>
-	Vendeur : <!-- pseudo -->
+	<p class="card-text">Vendeur : ${utilVendeur.pseudo}</p>
 	<br>
-	Ma proposition : <input type ="number"></input>     <button href = "">Enchérir</button>
+	Ma proposition : <input type ="number"></input>     
+	
+	<button>Enchérir</button>
 	
 	</div>
 	

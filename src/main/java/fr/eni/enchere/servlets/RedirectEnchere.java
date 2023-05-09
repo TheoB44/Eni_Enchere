@@ -36,28 +36,22 @@ public class RedirectEnchere extends HttpServlet {
 		String pidVendeur = request.getParameter("idVendeur");
 
 		if (pidVendeur != null && !pidVendeur.isBlank()) {
-
 			idVendeur = Integer.valueOf(pidVendeur);
 		}
 
-		
 		HttpSession session = request.getSession();
 		if (session != null) {
 			id = session.getAttribute("IdUtilisateur") != null ? (int) session.getAttribute("IdUtilisateur") : 0;
 		}
-		
+
 		if(id == 0 && id != idVendeur)
 			monProfil = false;
-		
-		
-		String pidArticle = request.getParameter("idArticle");
-		
-		if (pidArticle != null && !pidArticle.isBlank()) {
 
+		String pidArticle = request.getParameter("idArticle");
+		if (pidArticle != null && !pidArticle.isBlank()) {
 			idArticle = Integer.valueOf(pidArticle);
 		}
-		
-		
+
 		if(monProfil) {
 			
 		request.setAttribute("idArticle", pidArticle);
@@ -67,8 +61,11 @@ public class RedirectEnchere extends HttpServlet {
 			
 		}
 		else {
-			
+			request.setAttribute("idArticle", idArticle);
+			request.setAttribute("idVendeur", idVendeur);	
+			request.getRequestDispatcher("/DetailVente").forward(request, response);
 		}
+		
 	}
 
 	/**
