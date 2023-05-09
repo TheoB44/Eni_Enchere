@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import BO.Articles_Vendus;
 import BO.Categories;
+import BO.Encheres;
 import BO.Utilisateurs;
 
 public class ArticleDAOJdbcImpl implements ArticleDAO {
@@ -18,6 +19,25 @@ public class ArticleDAOJdbcImpl implements ArticleDAO {
 	private static final String SELECT_ARTICLE_ALL_BY_ID = "SELECT A.nom_article, A.description, C.libelle, A.no_utilisateur, A.image, A.etat_vente, A.prix_vente, A.prix_initial, A.date_debut_enchere, A.date_fin_enchere FROM ARTICLES_VENDUS A"
 			+ " LEFT JOIN CATEGORIES C ON A.no_categorie = C.no_categorie"
 			+ " WHERE no_article = ?";
+	
+	private static final String ETAT_VENTE = "SELECT A.etat_vente from ARTICLES_VENDUS A WHERE A.no_article = ?;";
+	
+	public String etatVente(int idArticle) {
+		String resultat = null;
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+		
+		PreparedStatement ps = cnx.prepareStatement(ETAT_VENTE);
+
+			ps.setInt(1, idArticle);
+			
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			resultat = rs.getString("etat_vente");
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultat;
+	}
 	
 	public Articles_Vendus getArticleByIdAll(int idArticle)
 	{

@@ -1,6 +1,7 @@
 package DAL;
 
 import BO.Articles_Vendus;
+import BO.Encheres;
 
 public interface ArticleDAO {
 	
@@ -13,4 +14,7 @@ public interface ArticleDAO {
 	boolean update(Articles_Vendus article);
 	
 	boolean delete(int idArticle);
+	
+	String etatVente(int idArticle);
+	
 }

@@ -48,7 +48,90 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 			+ " LEFT JOIN UTILISATEURS U ON U.no_utilisateur = E.no_utilisateur"
 			+ " WHERE E.no_article = ?";
 	
+	private static final String INSERT = "INSERT INTO ENCHERES(montant_enchere, no_utilisateur, no_article, date_enchere ) VALUES (?, ?, ?, GETDATE());";
+	private static final String UPDATE = "UPDATE ENCHERES SET montant_enchere = ?, no_utilisateur = ? WHERE no_article = ?;";
 
+	
+	private static final String HAS_ENCHERE = "SELECT * FROM ENCHERES WHERE no_article = ?;";
+	
+	private static final String SelectUtil = "SELECT no_utilisateur from ENCHERES WHERE no_article = ?;";
+	
+	@Override
+	public Encheres SelectUtil(int noArticle) {
+		Encheres enchere = new Encheres();
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+			
+			PreparedStatement ps = cnx.prepareStatement(SelectUtil);
+
+			// 3e etape : attribuer les parametres nécessaires à ma requête
+			
+			ps.setInt(1, noArticle);
+			
+			
+			ResultSet rs = ps.executeQuery();
+			if (rs != null) {
+				while (rs.next()) {
+					Utilisateurs util = new Utilisateurs();
+					util.setNo_utilisateurs(rs.getInt("no_utilisateur"));
+					enchere.setUtilisateur(util);
+				}
+			}
+			
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return enchere;
+		
+	}
+	
+	@Override
+	public void insertOrUpdate(int noUtil, int noArticle, int montant) {
+		boolean hasResult = false;
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+			PreparedStatement ps = cnx.prepareStatement(HAS_ENCHERE, PreparedStatement.RETURN_GENERATED_KEYS);
+			
+			ps.setInt(1, noArticle);
+			
+			ps.executeQuery();
+			ResultSet rs = ps.getGeneratedKeys();
+			if (rs.next()) {
+				hasResult = true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+			// 2e etape : preparer la requete SQL qu'on souhaite executer
+			PreparedStatement ps = null;
+			if(hasResult) {
+				ps = cnx.prepareStatement(UPDATE, PreparedStatement.RETURN_GENERATED_KEYS);
+			}
+			else {
+				ps = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
+			}
+			
+
+			// 3e etape : attribuer les parametres nécessaires à ma requête
+			ps.setInt(1, montant);
+			ps.setInt(2, noUtil);
+			ps.setInt(3, noArticle);
+
+			// 4e etape : execution de la requete et interpretation des resultats
+			ps.executeUpdate();
+			ResultSet rs = ps.getGeneratedKeys();
+			if (rs.next()) {
+				int id = rs.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	@Override
 	public Encheres topEnchere(int noArticle) {
 		Encheres enchere = new Encheres();

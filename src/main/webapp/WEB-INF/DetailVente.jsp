@@ -44,7 +44,20 @@
 		</div>
 	</c:if>
 	
-	<div id="Titre-Centre">Detail vente</div>
+	<c:if test="${etatVente == 'EC' || etatVente == 'CR'}">
+		<div id="Titre-Centre"><h1>Detail vente</h1></div>
+	</c:if>
+	
+	<c:if test="${etatVente == 'VD' && acheteur == true}">
+		<div id="Titre-Centre">Bravo ${topEnchere.utilisateur.pseudo}, Vous avez emporté la vente !</div>
+	</c:if>
+	
+	<c:if test="${etatVente == 'VD' && acheteur == false}">
+		<div id="Titre-Centre"> ${topEnchere.utilisateur.pseudo} a emporté la vente !</div>
+	</c:if>
+	
+	
+	
 	
 	<div id = "DetailVente-Image">
 	<img></img>
@@ -70,11 +83,34 @@
 	<br>
 	<p class="card-text">Retrait : ${retrait.rue} ${retrait.code_postal} ${retrait.ville} </p>
 	<br>
-	<p class="card-text">Vendeur : ${utilVendeur.pseudo}</p>
+	 Vendeur :<a name="idVendeur" id="idVendeur"
+						href="${pageContext.request.contextPath}/MonProfil?idVendeur=${utilVendeur.no_utilisateurs}"
+						class="card-text"> ${utilVendeur.pseudo}</a>
 	<br>
-	Ma proposition : <input type ="number"></input>     
+	<br>
 	
-	<button>Enchérir</button>
+	<c:if test="${enchere.article.etat_vente == 'VD' && acheteur == true}">
+		<p class="card-text">Tel : ${utilVendeur.telephone}</p>
+		<br>
+	</c:if>
+	
+		<c:if test="${etatVente == 'EC'}">
+			<form method="post" action="DetailVente" name="DetailVente" id="DetailVente">
+				<input type='hidden' name='idVendeur' id='idVendeur' value="${idVendeur}" />
+				<input type='hidden' name='idArticle' id='idArticle' value="${idArticle}" />
+				<input type='hidden' name='noArticle' id='noArticle' value="${article.no_article}" />
+				<input type='hidden' name='previousEnchere' id='previousEnchere' value="${topEnchere.montant_enchere}" />
+			
+				<p>Ma proposition :</p> <input name='montantEnchere' id='montantEnchere' type ="number" min="${topEnchere.montant_enchere}"></input>     
+			
+				
+				<button>Enchérir</button>
+				
+			</form>
+	</c:if>
+	
+	
+	
 	
 	</div>
 	
