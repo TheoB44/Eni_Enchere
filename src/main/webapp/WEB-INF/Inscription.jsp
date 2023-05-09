@@ -6,6 +6,7 @@
 <meta charset="ISO-8859-1">
 <jsp:include page="fragments/meta.html"></jsp:include>
 <link href="styles/style.css" rel="stylesheet" type="text/css">
+<jsp:include page="fragments/HeaderConnected.html"></jsp:include>
 <title>Inscription</title>
 </head>
 <body>

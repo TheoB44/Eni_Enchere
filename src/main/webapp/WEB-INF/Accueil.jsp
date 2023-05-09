@@ -7,12 +7,11 @@
 <meta charset="ISO-8859-1">
 <jsp:include page="fragments/meta.html"></jsp:include>
 <title>Accueil</title>
-</head>
-<body>
-	<h1>ENI-Enchères</h1>
 
-	<c:if test="${userConnected}">
-	
+
+
+<c:if test="${userConnected}">
+	<jsp:include page="fragments/HeaderConnected.html"></jsp:include>
 		<div id="ListeEnchere-Lien">
 			<table id = "Table-Bouton-Connecter" name = "Table-Bouton-Connecter" align="right">
 				<tr>
@@ -46,12 +45,18 @@
 	</c:if>
 
 	<c:if test="${not userConnected}">
+	<jsp:include page="fragments/HeaderDisconnected.html"></jsp:include>
 		<div id="Inscription-connexion">
 			<a href="${pageContext.request.contextPath}/Connexion">S'inscrire
 				- Se connecter</a>
 		</div>
 	</c:if>
-
+	
+</head>
+<body>
+	<h1>ENI-Enchères</h1>
+	
+	
 
 	<div id="Titre-Centre" align="center">Liste des Enchères</div>
 
