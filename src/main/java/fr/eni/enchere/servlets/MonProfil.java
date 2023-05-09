@@ -59,7 +59,7 @@ public class MonProfil extends HttpServlet {
 			//id = (int) session.getAttribute("IdUtilisateur");
 		}
 		
-		if(id == 0 && id != idVendeur)
+		if(id == 0 || (id != idVendeur && idVendeur != 0 ))
 			monProfil = false;
 		
 

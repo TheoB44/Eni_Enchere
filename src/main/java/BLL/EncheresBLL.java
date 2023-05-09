@@ -14,6 +14,16 @@ public class EncheresBLL {
 		dao = DAOFactory.getEncheresDAO();
 	}
 	
+	public Encheres SelectUtil(int noArticle) {
+		return dao.SelectUtil(noArticle);
+	}
+	
+	
+	
+	public void insertOrUpdate(int noUtil, int noArticle, int montant) {
+		dao.insertOrUpdate(noUtil, noArticle, montant);
+	}
+	
 	public List<Encheres> listeEncheres() {
 		return dao.SelectAll();
 	}

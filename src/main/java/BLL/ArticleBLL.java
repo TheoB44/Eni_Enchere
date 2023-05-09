@@ -1,9 +1,9 @@
 package BLL;
 
 import BO.Articles_Vendus;
+import BO.Encheres;
 import DAL.ArticleDAO;
 import DAL.DAOFactory;
-import DAL.UtilisateursDAO;
 
 public class ArticleBLL {
 
@@ -13,7 +13,10 @@ public class ArticleBLL {
 		dao = DAOFactory.getArticleDAO();
 	}
 	
-	
+	public String etatVente(int idArticle)
+	{
+		return dao.etatVente(idArticle);
+	}
 	
 	public boolean insert(Articles_Vendus article)
 	{
@@ -38,7 +41,6 @@ public class ArticleBLL {
 	}
 	
 	
-}
 	public boolean delete(int idArticle)
 	{
 		return dao.delete(idArticle);
