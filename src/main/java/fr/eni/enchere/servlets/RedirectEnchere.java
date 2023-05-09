@@ -31,6 +31,7 @@ public class RedirectEnchere extends HttpServlet {
 		boolean monProfil = true;
 		int idVendeur = 0;
 		int id = 0;
+		int idArticle = 0;
 
 		String pidVendeur = request.getParameter("idVendeur");
 
@@ -48,7 +49,21 @@ public class RedirectEnchere extends HttpServlet {
 		if(id == 0 && id != idVendeur)
 			monProfil = false;
 		
+		
+		String pidArticle = request.getParameter("idArticle");
+		
+		if (pidArticle != null && !pidArticle.isBlank()) {
+
+			idArticle = Integer.valueOf(pidArticle);
+		}
+		
+		
 		if(monProfil) {
+			
+		request.setAttribute("idArticle", pidArticle);
+		request.setAttribute("IsAlreadyCreated", true);
+		
+		request.getRequestDispatcher("/NouvelleVente").forward(request, response);
 			
 		}
 		else {
