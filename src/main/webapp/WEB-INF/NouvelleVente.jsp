@@ -76,7 +76,7 @@
 			<input type="text" id="nomArticle" name="nomArticle" value="${article.nom_article}"></input>
 	
 			<p>Description :</p>
-			<textarea id="description" name="description" value="${article.description}"></textarea>
+			<textarea id="description" name="description">${article.description}</textarea>
 	
 			<p>Catégorie</p>
 			<div>
