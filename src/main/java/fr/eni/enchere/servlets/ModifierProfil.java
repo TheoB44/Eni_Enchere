@@ -96,6 +96,7 @@ public class ModifierProfil extends HttpServlet {
 				if (mot_de_passeNew.equals(mot_de_passeConfirmation)) {
 					util.setMot_de_passe(mot_de_passeNew);
 					bll.update(util);
+					
 				} else {
 					// TODO : Afficher un message d'erreur, les deux mdp sont différents.
 					bll.update(util);
