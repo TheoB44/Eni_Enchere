@@ -9,29 +9,39 @@
 <title>Accueil</title>
 </head>
 <body>
-	<h1>ENI-EnchÃ¨res</h1>
+	<h1>ENI-Enchères</h1>
 
 	<c:if test="${userConnected}">
+	
 		<div id="ListeEnchere-Lien">
-			<form method="get" action="Encherir" name="Encherir" id="Encherir">
-				<button>EnchÃ¯Â¿Â½re</button>
-			</form>
-
-			<form method="get" action="NouvelleVente" name="NouvelleVente"
-				id="NouvelleVente">
-				<button>Vendre un article</button>
-			</form>
-
-			<form method="get" action="MonProfil" value="true" name="MyProfil"
-				id="MyProfil">
-				<button>Mon Profil</button>
-				<input type="hidden" value="${Id_Utils}" name="IDUtilisateur"
-					id="IDUtilisateur" />
-			</form>
-
-			<form method="get" action="Deconnexion">
-				<button>Deconnexion</button>
-			</form>
+			<table id = "Table-Bouton-Connecter" name = "Table-Bouton-Connecter" align="right">
+				<tr>
+					<td>
+						<form method="get" action="Encherir" name="Encherir" id="Encherir">
+							<button>Enchère</button>
+						</form>
+					</td>
+					<td>
+						<form method="get" action="NouvelleVente" name="NouvelleVente"
+							id="NouvelleVente">
+							<button>Vendre un article</button>
+						</form>
+					</td>
+					<td>
+						<form method="get" action="MonProfil" value="true" name="MyProfil"
+							id="MyProfil">
+							<button>Mon Profil</button>
+							<input type="hidden" value="${Id_Utils}" name="IDUtilisateur"
+								id="IDUtilisateur" />
+						</form>
+					</td>	
+					<td>
+						<form method="get" action="Deconnexion">
+							<button>Deconnexion</button>
+						</form>
+					</td>
+				</tr>
+			</table>
 		</div>
 	</c:if>
 
@@ -43,7 +53,7 @@
 	</c:if>
 
 
-	<div id="Titre-Centre">Liste des enchÃƒÂ¨res</div>
+	<div id="Titre-Centre" align="center">Liste des Enchères</div>
 
 	<form class="justify-content-center" method="post" action="Accueil">
 		<div>
@@ -53,7 +63,7 @@
 					name="searchNomArticle"> <span class="input-group-append">
 				</span>
 			</div>
-			<br> <br> CatÃƒÂ©gorie : <select name="categorieEnchere"
+			<br> <br> Catégorie : <select name="categorieEnchere"
 				id="categorieEnchere">
 				<option value="all">Toutes</option>
 				<c:forEach var="current" items="${listeCategories}">
@@ -66,11 +76,11 @@
 			<input type="radio" name="achatVente" value="achat" checked="checked"> Achats</input>
 			<div id="checkAchats">
 				<input type="checkbox" id="enchereOuverte" name="enchereOuverte"
-					value="enchereOuverte"> enchÃƒÂ¨res ouvertes</input> <input
+					value="enchereOuverte"> enchères ouvertes</input> <input
 					type="checkbox" id="mesEncheres" name="mesEncheres"
-					value="mesEncheres"> mes enchÃƒÂ¨res</input> <input type="checkbox"
+					value="mesEncheres"> mes enchères</input> <input type="checkbox"
 					id="enchereRemporte" name="enchereRemporte" value="enchereRemporte">mes
-				enchÃƒÂ¨res reportÃƒÂ©es</input>
+				enchères reportées</input>
 			</div>
 
 			<input type="radio" name="achatVente" value="vente"> Mes Ventes</input>
@@ -78,9 +88,9 @@
 				<input type="checkbox" id="checkVenteEC" name="checkVenteEC"
 					disabled value="checkVenteEC"> mes ventes en cours</input> <input
 					type="checkbox" id="checkVenteDebute" name="checkVenteDebute"
-					disabled value="checkVenteDebute"> ventes non dÃƒÂ©butÃƒÂ©es</input> <input
+					disabled value="checkVenteDebute"> ventes non débutées</input> <input
 					type="checkbox" id="checkVenteTermine" name="checkVenteTermine"
-					disabled value="checkVenteTermine"> ventes terminÃƒÂ©es</input>
+					disabled value="checkVenteTermine"> ventes terminées</input>
 			</div>
 		</c:if>
 
@@ -134,7 +144,7 @@
 					</h6>
 
 					<p class="card-text">Prix : ${current.montant_enchere} points</p>
-					<p class="card-text">Fin de l'enchÃ¨re :
+					<p class="card-text">Fin de l'enchère :
 						${current.article.date_fin_enchere}</p>
 					Vendeur :<a name="idVendeur" id="idVendeur"
 						href="${pageContext.request.contextPath}/MonProfil?idVendeur=${current.article.no_utilisateur}"
