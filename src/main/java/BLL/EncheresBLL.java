@@ -18,6 +18,10 @@ public class EncheresBLL {
 		return dao.SelectAll();
 	}
 	
+	public Encheres topEnchere(int noArticle) {
+		return dao.topEnchere(noArticle);
+	}
+	
 	public List<Encheres> listeEncheresSearch(String nomArticle, String noCate) {
 		return dao.Search(nomArticle, noCate);
 	}

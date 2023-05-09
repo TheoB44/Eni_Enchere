@@ -13,38 +13,72 @@ import BO.Utilisateurs;
 
 public class EncheresDAOJdbcImpl implements EncheresDAO {
 
-	private static final String SELECT_ALL = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, V.pseudo, A.no_utilisateur FROM ENCHERES E"
-			+ " LEFT JOIN ARTICLES_VENDUS A ON A.no_article = E.no_article"
+	private static final String SELECT_ALL = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, V.pseudo, A.no_utilisateur, A.no_article FROM ARTICLES_VENDUS A"
+			+ " LEFT JOIN ENCHERES E ON E.no_article = A.no_article "
 			+ " LEFT JOIN UTILISATEURS V ON A.no_utilisateur = V.no_utilisateur"
 			+ " LEFT JOIN UTILISATEURS U ON U.no_utilisateur = E.no_utilisateur;";
 
-	private static final String SELECT_SEARCH = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo FROM ENCHERES E"
-			+ " LEFT JOIN ARTICLES_VENDUS A ON A.no_article = E.no_article"
+	private static final String SELECT_SEARCH = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo, A.no_article FROM ARTICLES_VENDUS A"
+			+ " LEFT JOIN ENCHERES E ON E.no_article = A.no_article "
 			+ " LEFT JOIN UTILISATEURS U ON U.no_utilisateur = E.no_utilisateur"
 			+ " LEFT JOIN CATEGORIES C ON C.no_categorie = A.no_categorie"
 			+ " WHERE A.nom_article like ?;";
 	
-	private static final String SELECT_SEARCH_ARTICLE = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo FROM ENCHERES E"
-			+ " LEFT JOIN ARTICLES_VENDUS A ON A.no_article = E.no_article"
+	private static final String SELECT_SEARCH_ARTICLE = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo, A.no_article FROM ARTICLES_VENDUS A"
+			+ " LEFT JOIN ENCHERES E ON E.no_article = A.no_article "
 			+ " LEFT JOIN UTILISATEURS U ON U.no_utilisateur = E.no_utilisateur"
 			+ " LEFT JOIN CATEGORIES C ON C.no_categorie = A.no_categorie"
 			+ " WHERE A.nom_article like ?"
 			+ " AND C.no_categorie = ?;";
 	
-	private static final String SELECT_SEARCH_CONNECTED = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo FROM ENCHERES E"
-			+ " LEFT JOIN ARTICLES_VENDUS A ON A.no_article = E.no_article"
+	private static final String SELECT_SEARCH_CONNECTED = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo FROM ARTICLES_VENDUS A"
+			+ " LEFT JOIN ENCHERES E ON E.no_article = A.no_article "
 			+ " LEFT JOIN UTILISATEURS U ON U.no_utilisateur = E.no_utilisateur"
 			+ " LEFT JOIN CATEGORIES C ON C.no_categorie = A.no_categorie"
 			+ " WHERE A.nom_article like ?"
 			+ " AND C.no_categorie = ?";
 	
-	private static final String SELECT_SEARCH_CONNECTED_ALL = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo FROM ENCHERES E"
-			+ " LEFT JOIN ARTICLES_VENDUS A ON A.no_article = E.no_article"
+	private static final String SELECT_SEARCH_CONNECTED_ALL = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo FROM ARTICLES_VENDUS A"
+			+ " LEFT JOIN ENCHERES E ON E.no_article = A.no_article "
 			+ " LEFT JOIN UTILISATEURS U ON U.no_utilisateur = E.no_utilisateur"
 			+ " LEFT JOIN CATEGORIES C ON C.no_categorie = A.no_categorie"
 			+ " WHERE A.nom_article like ?";
 	
+	private static final String SELECT_TOP_ENCHERE = "SELECT TOP(1) montant_enchere, U.pseudo FROM ENCHERES E"
+			+ " LEFT JOIN UTILISATEURS U ON U.no_utilisateur = E.no_utilisateur"
+			+ " WHERE E.no_article = ?";
+	
 
+	@Override
+	public Encheres topEnchere(int noArticle) {
+		Encheres enchere = new Encheres();
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+			
+			PreparedStatement ps = cnx.prepareStatement(SELECT_TOP_ENCHERE);
+
+			// 3e etape : attribuer les parametres nécessaires à ma requête
+			
+			ps.setInt(1, noArticle);
+			
+			
+			ResultSet rs = ps.executeQuery();
+			if (rs != null) {
+				while (rs.next()) {
+					enchere.setMontant_enchere(rs.getFloat("montant_enchere"));
+					Utilisateurs util = new Utilisateurs();
+					util.setPseudo(rs.getString("pseudo"));
+					enchere.setUtilisateur(util);
+				}
+			}
+			
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return enchere;
+		
+	}
+	
 	@Override
 	public List<Encheres> SearchConnected(String nomArticle, String noCate, int noUtil, List<String> etatVente, String type) {
 		List<Encheres> resultat = new ArrayList();
@@ -205,6 +239,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 					encheres.setMontant_enchere(rs.getFloat("montant_enchere"));
 					Articles_Vendus article = new Articles_Vendus();
 					article.setNom_article(rs.getString("nom_article"));
+					article.setNo_article(rs.getInt("no_article"));
 					article.setDate_fin_enchere(rs.getDate("date_fin_enchere"));
 					Utilisateurs util = new Utilisateurs();
 					util.setPseudo(rs.getString("pseudo"));
@@ -235,6 +270,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 					encheres = new Encheres();
 					encheres.setMontant_enchere(rs.getFloat("montant_enchere"));
 					Articles_Vendus article = new Articles_Vendus();
+					article.setNo_article(rs.getInt("no_article"));
 					article.setNom_article(rs.getString("nom_article"));
 					article.setDate_fin_enchere(rs.getDate("date_fin_enchere"));
 					article.setNo_utilisateur(rs.getInt("no_utilisateur"));
