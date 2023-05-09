@@ -15,4 +15,19 @@ public class RetraitsBLL {
 	{
 		return dao.selectRetraitById(idArticle);
 	}
+	
+	public boolean insert(Retraits retrait)
+	{
+		return dao.insert(retrait);
+	}
+	
+	public boolean update(Retraits retrait)
+	{
+		return dao.update(retrait);
+	}
+	
+	public boolean delete(Retraits retrait) 
+	{
+		return dao.delete(retrait);
+	}
 }

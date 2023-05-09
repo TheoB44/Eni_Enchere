@@ -9,7 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import BLL.ArticleBLL;
+import BLL.RetraitsBLL;
 import BLL.UtilisateurBLL;
+import BO.Articles_Vendus;
+import BO.Retraits;
 
 /**
  * Servlet implementation class SupprimerVente
@@ -19,10 +22,12 @@ public class SupprimerVente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private ArticleBLL bll;
+	private RetraitsBLL retraitbll;
 
 	@Override
 	public void init() throws ServletException {
 		bll = new ArticleBLL();
+		retraitbll = new RetraitsBLL();
 	}
 	
     /**
@@ -58,8 +63,19 @@ public class SupprimerVente extends HttpServlet {
 		if(pIdArticle != null && !pIdArticle.isBlank())
 			idArticle = Integer.valueOf(pIdArticle);
 		if(idArticle > 0)
-			vretour = bll.delete(idArticle);
-		
+		{
+			Retraits retrait = new Retraits();
+			Articles_Vendus article = new Articles_Vendus();
+			article.setNo_article(idArticle);
+			retrait.setArticle(article);
+			
+			
+			vretour = retraitbll.delete(retrait);
+			
+			if(vretour)
+				vretour = bll.delete(idArticle);
+		}
+
 		if(vretour)
 			request.getRequestDispatcher("/Accueil").forward(request, response);
 		else

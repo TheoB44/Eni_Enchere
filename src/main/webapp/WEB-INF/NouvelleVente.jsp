@@ -121,13 +121,13 @@
 	
 			<div id="retrait" >
 				<p>Rue :</p>
-				<input type="text" name="rue"id="rue" value="${Adresse.rue}" ></input>
+				<input type="text" name="rue"id="rue" value="${retrait.rue}" ></input>
 	
 				<p>Code Postal :</p>
-				<input type="text" name="code_postal"id="code_postal" value="${Adresse.code_postal}"></input>
+				<input type="text" name="code_postal"id="code_postal" value="${retrait.code_postal}"></input>
 	
 				<p>Ville :</p>
-				<input type="text" name="ville"id="ville" value="${Adresse.ville}"></input>
+				<input type="text" name="ville"id="ville" value="${retrait.ville}"></input>
 			</div>
 			
 			<input type="hidden" id="idArticle" name="idArticle" value="${article.no_article}"></input>
