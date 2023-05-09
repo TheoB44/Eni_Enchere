@@ -57,29 +57,31 @@ public class NouvelleVente extends HttpServlet {
 		List<Categories> listeCategories = new ArrayList();
 		int idArticle = 0;
 		Articles_Vendus article = null;
-		
-		var test = request.getAttribute("IsAlreadyCreated") != null && request.getAttribute("IsAlreadyCreated") != "" ? (boolean) request.getAttribute("IsAlreadyCreated") : false;
+
+		var test = request.getAttribute("IsAlreadyCreated") != null && request.getAttribute("IsAlreadyCreated") != ""
+				? (boolean) request.getAttribute("IsAlreadyCreated")
+				: false;
 
 		if (test) {
-			
+
 			String pidArticle = request.getParameter("idArticle");
-			
+
 			if (pidArticle != null && !pidArticle.isBlank()) {
 
 				idArticle = Integer.valueOf(pidArticle);
 			}
-			
-			if(idArticle > 0) {
+
+			if (idArticle > 0) {
 				article = ArticleBll.getArticleById(idArticle);
 				request.setAttribute("article", article);
 			}
-		} 
+		}
 
-			var adresse = bll.getAdressById((int) session.getAttribute("IdUtilisateur"));
-			request.setAttribute("Adresse", adresse);
-			var t = bllCategories.listeCategories();
-			request.setAttribute("listeCategories", t);
-			request.setAttribute("IsAlreadyCreated", test);
+		var adresse = bll.getAdressById((int) session.getAttribute("IdUtilisateur"));
+		request.setAttribute("Adresse", adresse);
+		var t = bllCategories.listeCategories();
+		request.setAttribute("listeCategories", t);
+		request.setAttribute("IsAlreadyCreated", test);
 
 		request.getRequestDispatcher("/WEB-INF/NouvelleVente.jsp").forward(request, response);
 	}
@@ -90,95 +92,112 @@ public class NouvelleVente extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO faire l'insertion de la vente
-		try {
-			HttpSession session = request.getSession();
-			Articles_Vendus article = null;
+		String pSupprimer= request.getParameter("Supprimer");
+		boolean supprimer = false;
 
-			String nomArticle = request.getParameter("nomArticle");
-			String description = request.getParameter("description");
-			String categorieEnchere = request.getParameter("categorieEnchere");
-			String prix = request.getParameter("prix");
-			String dateDebut = request.getParameter("dateDebut");
-			String dateFin = request.getParameter("dateFin");
-			String rue = request.getParameter("rue");
-			String code_postal = request.getParameter("code_postal");
-			String ville = request.getParameter("ville");
-			// String identifiant = request.getParameter("image");
-			int idVendeur = (int) session.getAttribute("IdUtilisateur");
-			int idCategorie = 0;
-			float prixInitial = 0;
-			Date dateDeb = null;
-			Date dateDeFin = null;
+		if (pSupprimer != null && !pSupprimer.isBlank())
+			supprimer = Boolean.valueOf(pSupprimer);
 
-			if (categorieEnchere != null && !categorieEnchere.isBlank()) {
+		if (!supprimer) {
+			try {
+				HttpSession session = request.getSession();
+				Articles_Vendus article = null;
 
-				idCategorie = Integer.valueOf(categorieEnchere);
-			}
-			if (prix != null && !prix.isBlank()) {
+				String nomArticle = request.getParameter("nomArticle");
+				String description = request.getParameter("description");
+				String categorieEnchere = request.getParameter("categorieEnchere");
+				String prix = request.getParameter("prix");
+				String dateDebut = request.getParameter("dateDebut");
+				String dateFin = request.getParameter("dateFin");
+				String rue = request.getParameter("rue");
+				String code_postal = request.getParameter("code_postal");
+				String ville = request.getParameter("ville");
+				// String identifiant = request.getParameter("image");
+				int idVendeur = (int) session.getAttribute("IdUtilisateur");
+				int idCategorie = 0;
+				float prixInitial = 0;
+				Date dateDeb = null;
+				Date dateDeFin = null;
 
-				prixInitial = Float.valueOf(prix);
-			}
-			if (dateDebut != null && !dateDebut.isBlank()) {
+				if (categorieEnchere != null && !categorieEnchere.isBlank()) {
 
-				// try {
-				// dateDeb = new SimpleDateFormat("yyyy-MM-dd").parse(dateDebut);
-				dateDeb = java.sql.Date.valueOf(dateDebut);
-				/*
-				 * } catch (ParseException e) { // TODO Auto-generated catch block
-				 * e.printStackTrace(); }
-				 */
-			}
-			if (dateFin != null && !dateFin.isBlank()) {
-
-				/*
-				 * try { dateDeFin = new SimpleDateFormat("yyyy-MM-dd").parse(dateFin);
-				 */
-				dateDeFin = java.sql.Date.valueOf(dateFin);
-				/*
-				 * } catch (ParseException e) { e.printStackTrace(); }
-				 */
-			}
-
-			if (idCategorie > 0 && prixInitial > 0 && dateDeb != null && dateDeFin != null) {
-				
-				article = new Articles_Vendus(0, nomArticle, description, dateDeb, dateDeFin, prixInitial, 0, idVendeur,
-						idCategorie, null, null, null, null);
-
-				
-				boolean vretour = false;
-				boolean modifier = false;
-				
-				String pModifier = request.getParameter("Modifier");
-				
-				if(pModifier != null && !pModifier.isBlank())
-					modifier = Boolean.valueOf(pModifier);
-				
-				if(modifier)
-				{
-					int idArticle = 0;
-					String pidArticle = request.getParameter("idArticle");
-					
-					if(pidArticle != null && !pidArticle.isBlank())
-						idArticle = Integer.valueOf(pidArticle);
-					article.setNo_article(idArticle);
-					
-					vretour = ArticleBll.update(article);
+					idCategorie = Integer.valueOf(categorieEnchere);
 				}
-				else
-					vretour = ArticleBll.insert(article);
-				
-				
-				if (vretour) {
-					request.getRequestDispatcher("/Accueil").forward(request, response);
-				} else {
-					throw new Exception();
+				if (prix != null && !prix.isBlank()) {
+
+					prixInitial = Float.valueOf(prix);
+				}
+				if (dateDebut != null && !dateDebut.isBlank()) {
+
+					// try {
+					// dateDeb = new SimpleDateFormat("yyyy-MM-dd").parse(dateDebut);
+					dateDeb = java.sql.Date.valueOf(dateDebut);
+					/*
+					 * } catch (ParseException e) { // TODO Auto-generated catch block
+					 * e.printStackTrace(); }
+					 */
+				}
+				if (dateFin != null && !dateFin.isBlank()) {
+
+					/*
+					 * try { dateDeFin = new SimpleDateFormat("yyyy-MM-dd").parse(dateFin);
+					 */
+					dateDeFin = java.sql.Date.valueOf(dateFin);
+					/*
+					 * } catch (ParseException e) { e.printStackTrace(); }
+					 */
 				}
 
+				if (idCategorie > 0 && prixInitial > 0 && dateDeb != null && dateDeFin != null) {
+
+					article = new Articles_Vendus(0, nomArticle, description, dateDeb, dateDeFin, prixInitial, 0,
+							idVendeur, idCategorie, null, null, null, null);
+
+					boolean vretour = false;
+					boolean modifier = false;
+
+					String pModifier = request.getParameter("Modifier");
+
+					if (pModifier != null && !pModifier.isBlank())
+						modifier = Boolean.valueOf(pModifier);
+
+					if (modifier) {
+						int idArticle = 0;
+						String pidArticle = request.getParameter("idArticle");
+
+						if (pidArticle != null && !pidArticle.isBlank())
+							idArticle = Integer.valueOf(pidArticle);
+						article.setNo_article(idArticle);
+
+						vretour = ArticleBll.update(article);
+					} else
+						vretour = ArticleBll.insert(article);
+
+					if (vretour) {
+						request.getRequestDispatcher("/Accueil").forward(request, response);
+					} else {
+						throw new Exception();
+					}
+
+				}
+			} catch (Exception e) {
+				// message d'erreur
+				System.out.println("erreur à l'insertion");
 			}
-		} catch (Exception e) {
-			// message d'erreur
-			System.out.println("erreur à l'insertion");
+		}else
+		{
+			int idArticle = 0;
+			String pidArticle = request.getParameter("idArticle");
+
+			if (pidArticle != null && !pidArticle.isBlank())
+				idArticle = Integer.valueOf(pidArticle);
+			
+			if(idArticle > 0)
+			{
+				request.setAttribute("idArticle", idArticle);
+				request.getRequestDispatcher("/SupprimerVente").forward(request, response);
+			}
 		}
+
 	}
 }

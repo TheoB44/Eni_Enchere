@@ -136,9 +136,7 @@
 			<button onclick = "window.location.href = '${pageContext.request.contextPath}/Accueil'">Annuler</button>
 				
 			<c:if test="${(article.etat_vente =='CR')}">
-	
-				<button onclick = "/SupprimerVente?idArticle=${article.no_article}">Annuler la vente</button>
-				
+				<button name="Supprimer" id="Supprimer" value="true">Annuler la vente</button>
 			</c:if>
 		</form>
 		

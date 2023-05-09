@@ -62,8 +62,8 @@ public class SupprimerVente extends HttpServlet {
 		
 		if(vretour)
 			request.getRequestDispatcher("/Accueil").forward(request, response);
-		
-		response.getWriter().append("Erreur lors de la suppression de l'article. ");
+		else
+			response.getWriter().append("Erreur lors de la suppression de l'article. ");
 	}
 
 }
