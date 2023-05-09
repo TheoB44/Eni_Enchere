@@ -6,6 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <jsp:include page="fragments/meta.html"></jsp:include>
+<jsp:include page="fragments/HeaderConnected.html"></jsp:include>
 </head>
 <body >
 	<div id="connexion-container">
@@ -14,6 +15,8 @@
 		<br>
 
 		<form class="row justify-content-center mb-2" method="post" action="Connexion">
+
+<input type="hidden" value = "${ErreurConnexion}" name ="IsErreurConnexion" id = "IsErreurConnexion">
 
 			<div name="connexion-identifiant" id="connexion-identifiant">
 				<div id="connexion-divCo">

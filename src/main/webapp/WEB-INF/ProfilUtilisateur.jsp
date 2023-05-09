@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <jsp:include page="fragments/meta.html"></jsp:include>
+<jsp:include page="fragments/HeaderConnected.html"></jsp:include>
 <title>Profil de "Insérer pseudo utilisateur"</title>
 </head>
 <body>

@@ -40,11 +40,8 @@ public class ArticleBLL {
 		return dao.getArticleByIdAll(idArticle);
 	}
 	
-	
 	public boolean delete(int idArticle)
 	{
 		return dao.delete(idArticle);
 	}
-	
-	
 }

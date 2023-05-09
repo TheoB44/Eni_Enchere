@@ -6,6 +6,7 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <jsp:include page="fragments/meta.html"></jsp:include>
+<jsp:include page="fragments/HeaderConnected.html"></jsp:include>
 </head>
 <body>
 

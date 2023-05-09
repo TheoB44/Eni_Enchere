@@ -6,6 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <jsp:include page="fragments/meta.html"></jsp:include>
+<jsp:include page="fragments/HeaderConnected.html"></jsp:include>
 <link href="styles/style.css" rel="stylesheet" type="text/css">
 <title>Detail de la vente</title>
 </head>

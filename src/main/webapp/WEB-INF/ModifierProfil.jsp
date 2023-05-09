@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <jsp:include page="fragments/meta.html"></jsp:include>
+<jsp:include page="fragments/HeaderConnected.html"></jsp:include>
 <title>Modifier ou supprimer mon profil</title>
 </head>
 <body>

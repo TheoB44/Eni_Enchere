@@ -32,7 +32,7 @@ public class Deconnexion extends HttpServlet {
 		session.removeAttribute("currentUser");
 		session.removeAttribute("IdUtilisateur");
 		session.removeAttribute("userConnected");
-		request.getRequestDispatcher("/WEB-INF/Accueil.jsp").forward(request, response);
+		request.getRequestDispatcher("/Accueil").forward(request, response);
 	}
 
 	/**
