@@ -3,8 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="ISO-8859-1">
+<head onload="recupererCookie();">
 <jsp:include page="fragments/meta.html"></jsp:include>
 <title>Accueil</title>
 
@@ -47,14 +46,13 @@
 	<c:if test="${not userConnected}">
 	<jsp:include page="fragments/HeaderDisconnected.html"></jsp:include>
 		<div id="Inscription-connexion">
-			<a href="${pageContext.request.contextPath}/Connexion">S'inscrire
-				- Se connecter</a>
+			<a href="${pageContext.request.contextPath}/Connexion">S'inscrire - Se connecter</a>
 		</div>
 	</c:if>
-	
+
 </head>
 <body>
-	<h1>ENI-Enchères</h1>
+<h1>ENI-Enchères</h1>
 	
 	
 
@@ -163,3 +161,33 @@
 
 </body>
 </html>
+<script>
+var test = false;
+function recupererCookie() {
+    nom = nom + "=";
+    var liste = document.cookie.split(';');
+    var id = null;
+    var mdp = null;
+    for (var i = 0; i < liste.length; i++) {
+        var c = liste[i];
+        if(c.includes("user"))
+       	{
+        	var t = c.split('=');
+       		id = t[1];
+       	}
+        	
+        if(c.includes("pwd"))
+       	{
+        	var t = c.split('=');
+       		mdp = t[1];
+       	}
+    }
+    
+    if(id != null && mdp != null)
+    {
+    	test = true;
+    }
+    test =  false;
+}
+
+</script>
