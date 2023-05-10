@@ -20,7 +20,7 @@
 	<c:if test="${not IsAlreadyCreated}">
 	
 	<div style="text-align:center;">
-		<form action = "NouvelleVente" method = post>
+		<form action = "NouvelleVente" method = post enctype="multipart/form-data">
 			<p>Article :</p>
 			<input type="text" id="nomArticle" name="nomArticle"></input>
 	
@@ -42,8 +42,10 @@
 			
 			<br>
 	
-			<p>Photo de l'article</p>
-			<button>Uploader</button>
+			<br>
+			
+			<p>Image :</p>
+			<input type="file" id="imageArticle" name="imageArticle" />
 			
 			<br>
 	
@@ -121,11 +123,6 @@
 					  }
 				}
 			</script>
-			
-			
-	
-			<p>Photo de l'article</p>
-			<button>Uploader</button>
 	
 			<p>Mise à prix :</p>
 			<input id="prix" name="prix" type="number" value="${article.prix_initial}"></input>

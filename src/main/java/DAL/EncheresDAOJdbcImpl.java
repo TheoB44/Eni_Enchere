@@ -14,7 +14,7 @@ import BO.Utilisateurs;
 public class EncheresDAOJdbcImpl implements EncheresDAO {
 
 
-	private static final String SELECT_ALL = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, V.pseudo, A.no_utilisateur, A.no_article, A.no_categorie FROM ARTICLES_VENDUS A"
+	private static final String SELECT_ALL = "SELECT E.montant_enchere, A.image, A.nom_article, A.date_fin_enchere, V.pseudo, A.no_utilisateur, A.no_article, A.no_categorie FROM ARTICLES_VENDUS A"
 			+ " LEFT JOIN ENCHERES E ON E.no_article = A.no_article "
 			+ " LEFT JOIN UTILISATEURS V ON A.no_utilisateur = V.no_utilisateur"
 			+ " LEFT JOIN UTILISATEURS U ON U.no_utilisateur = E.no_utilisateur;";
@@ -33,13 +33,13 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 			+ " AND C.no_categorie = ?;";
 
 
-	private static final String SELECT_SEARCH_CONNECTED = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo,A.no_article,A.no_categorie FROM ARTICLES_VENDUS A"
+	private static final String SELECT_SEARCH_CONNECTED = "SELECT E.montant_enchere, A.image, A.nom_article, A.date_fin_enchere, U.pseudo,A.no_article,A.no_categorie FROM ARTICLES_VENDUS A"
 			+ " LEFT JOIN ENCHERES E ON E.no_article = A.no_article "
 			+ " LEFT JOIN UTILISATEURS U ON U.no_utilisateur = E.no_utilisateur"
 			+ " LEFT JOIN CATEGORIES C ON C.no_categorie = A.no_categorie" + " WHERE A.nom_article like ?"
 			+ " AND C.no_categorie = ?";
 
-	private static final String SELECT_SEARCH_CONNECTED_ALL = "SELECT E.montant_enchere, A.nom_article, A.date_fin_enchere, U.pseudo,A.no_article,A.no_categorie FROM ARTICLES_VENDUS A"
+	private static final String SELECT_SEARCH_CONNECTED_ALL = "SELECT E.montant_enchere, A.image, A.nom_article, A.date_fin_enchere, U.pseudo,A.no_article,A.no_categorie FROM ARTICLES_VENDUS A"
 			+ " LEFT JOIN ENCHERES E ON E.no_article = A.no_article "
 			+ " LEFT JOIN UTILISATEURS U ON U.no_utilisateur = E.no_utilisateur"
 			+ " LEFT JOIN CATEGORIES C ON C.no_categorie = A.no_categorie" + " WHERE A.nom_article like ?";
@@ -277,6 +277,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 					article.setDate_fin_enchere(rs.getDate("date_fin_enchere"));
 					article.setNo_article(rs.getInt("no_article"));
 					article.setNo_categorie(rs.getInt("no_categorie"));
+					article.setImage(rs.getString("image"));
 					Utilisateurs util = new Utilisateurs();
 					util.setPseudo(rs.getString("pseudo"));
 					encheres.setArticle(article);
@@ -358,6 +359,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 					article.setNo_utilisateur(rs.getInt("no_utilisateur"));
 					article.setNo_article(rs.getInt("no_article"));
 					article.setNo_categorie(rs.getInt("no_categorie"));
+					article.setImage(rs.getString("image"));
 					Utilisateurs util = new Utilisateurs();
 					util.setPseudo(rs.getString("pseudo"));
 					encheres.setArticle(article);
