@@ -64,12 +64,16 @@ public class DetailVente extends HttpServlet {
 		
 		boolean acheteur = false;
 		if(id != null) {
+			request.setAttribute("connected", true);
 			idUtil = (int)id;
 			if(enchere != null) {
 				if(idUtil == enchere.getutilisateur().getNo_utilisateurs()) {
 					acheteur = true;
 				}
 			}
+		}
+		else {
+			request.setAttribute("connected", false);
 		}
 		request.setAttribute("acheteur", acheteur);
 		

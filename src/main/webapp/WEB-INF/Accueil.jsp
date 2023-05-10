@@ -8,66 +8,31 @@
 <title>Accueil</title>
 
 
-
 <c:if test="${userConnected}">
-	<jsp:include page="fragments/HeaderConnected.html"></jsp:include>
-		<div id="ListeEnchere-Lien">
-			<table id = "Table-Bouton-Connecter" name = "Table-Bouton-Connecter" align="right">
-				<tr>
-					<td>
-						<form method="get" action="Encherir" name="Encherir" id="Encherir">
-							<button>Enchère</button>
-						</form>
-					</td>
-					<td>
-						<form method="get" action="NouvelleVente" name="NouvelleVente"
-							id="NouvelleVente">
-							<button>Vendre un article</button>
-						</form>
-					</td>
-					<td>
-						<form method="get" action="MonProfil" value="true" name="MyProfil"
-							id="MyProfil">
-							<button>Mon Profil</button>
-							<input type="hidden" value="${Id_Utils}" name="IDUtilisateur"
-								id="IDUtilisateur" />
-						</form>
-					</td>	
-					<td>
-						<form method="get" action="Deconnexion">
-							<button>Deconnexion</button>
-						</form>
-					</td>
-				</tr>
-			</table>
-		</div>
+	<jsp:include page="fragments/HeaderConnected.jsp"></jsp:include>
 	</c:if>
 
 	<c:if test="${not userConnected}">
-	<jsp:include page="fragments/HeaderDisconnected.html"></jsp:include>
-		<div id="Inscription-connexion">
-			<a href="${pageContext.request.contextPath}/Connexion">S'inscrire - Se connecter</a>
-		</div>
+	<jsp:include page="fragments/HeaderDisconnected.jsp"></jsp:include>
 	</c:if>
 
 </head>
 <body>
-<h1>ENI-Enchères</h1>
 	
 	
 
-	<div id="Titre-Centre" align="center">Liste des Enchères</div>
+	<div id="Titre-Centre" align="center"><h1>Liste des Enchères</h1></div>
 
-	<form class="justify-content-center" method="post" action="Accueil">
-		<div>
+	<form style="padding-inline:20px; text-align:center;" class="justify-content-center" method="post" action="Accueil">
+		<div id ="divFiltres">
 			Filtres : <br>
 			<div class="input-group">
 				<input type="search" placeholder="Le nom de l'article contient"
-					name="searchNomArticle"> <span class="input-group-append">
+					name="searchNomArticle" class="form-control"> <span class="input-group-append">
 				</span>
 			</div>
 			<br> <br> Catégorie : <select name="categorieEnchere"
-				id="categorieEnchere">
+				id="categorieEnchere" class="form-select">
 				<option value="all">Toutes</option>
 				<c:forEach var="current" items="${listeCategories}">
 					<option value="${current.no_categorie}">${current.libelle}</option>
@@ -128,14 +93,14 @@
 			});
 		</script>
 
-
+		<br>
 		<div id="bouton">
-			<button>Rechercher</button>
+			<button  class="btn btn-outline-dark">Rechercher</button>
 		</div>
 	</form>
 	<br>
 
-	<div class="row">
+	<div class="row" id ="rowResult">
 
 		<c:forEach var="current" items="${listeEncheres}">
 			<div class="card" style="width: 18rem;">

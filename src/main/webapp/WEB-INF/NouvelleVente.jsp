@@ -7,27 +7,29 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <jsp:include page="fragments/meta.html"></jsp:include>
-<jsp:include page="fragments/HeaderConnected.html"></jsp:include>
+<jsp:include page="fragments/HeaderConnected.jsp"></jsp:include>
 </head>
 <body>
-
-	<h1>ENI-Enchères</h1>
 
 	<img></img>
 
 
-	<h1>Nouvelle Vente</h1>
+	<h1 style="text-align:center;">Nouvelle Vente</h1>
 	
 	
 	<c:if test="${not IsAlreadyCreated}">
 	
-	<div>
+	<div style="text-align:center;">
 		<form action = "NouvelleVente" method = post>
 			<p>Article :</p>
 			<input type="text" id="nomArticle" name="nomArticle"></input>
 	
+			<br>
+	
 			<p>Description :</p>
 			<textarea id="description" name="description"></textarea>
+	
+			<br>
 	
 			<p>Catégorie</p>
 			<div>
@@ -37,26 +39,40 @@
 					</c:forEach>
 			</select>
 			</div>
+			
+			<br>
 	
 			<p>Photo de l'article</p>
 			<button>Uploader</button>
+			
+			<br>
 	
 			<p>Mise à prix :</p>
 			<input id="prix" name="prix" type="number"></input>
 	
+			<br>
+			
 			<p>Début de l'enchère :</p>
 			<input type="date" id="dateDebut" name="dateDebut">
+			
+			<br>
 	
 			<p>Fin de l'enchère :</p>
 			<input type="date" id="dateFin" name="dateFin">
+			
+			<br>
 	
 			<div id="retrait" >
 				<p>Rue :</p>
 				<input type="text" name="rue"id="rue" value="${Adresse.rue}"> </input>
+				
+				<br>
 	
 				<p>Code Postal :</p>
 				<input type="text" name="code_postal"id="code_postal" value="${Adresse.code_postal}"></input>
 	
+				<br>
+				
 				<p>Ville :</p>
 				<input type="text" name="ville"id="ville" value="${Adresse.ville}"></input>
 			</div>

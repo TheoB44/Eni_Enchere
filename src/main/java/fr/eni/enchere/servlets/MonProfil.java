@@ -58,6 +58,12 @@ public class MonProfil extends HttpServlet {
 			id = session.getAttribute("IdUtilisateur") != null ? (int) session.getAttribute("IdUtilisateur") : 0;
 			//id = (int) session.getAttribute("IdUtilisateur");
 		}
+		if(id == 0) {
+			request.setAttribute("connected", false);
+		}
+		else {
+			request.setAttribute("connected", true);
+		}
 		
 		if(id == 0 || (id != idVendeur && idVendeur != 0 ))
 			monProfil = false;

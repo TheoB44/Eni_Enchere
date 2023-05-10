@@ -6,43 +6,17 @@
 <head>
 <meta charset="ISO-8859-1">
 <jsp:include page="fragments/meta.html"></jsp:include>
-<jsp:include page="fragments/HeaderConnected.html"></jsp:include>
+<c:if test="${connected == true }">
+<jsp:include page="fragments/HeaderConnected.jsp"></jsp:include>
+</c:if>
+<c:if test="${connected == false }">
+<jsp:include page="fragments/HeaderDisconnected.jsp"></jsp:include>
+</c:if>
 <link href="styles/style.css" rel="stylesheet" type="text/css">
 <title>Detail de la vente</title>
 </head>
 <body>
 	<h1>ENI-Enchères</h1>
-	
-	<c:if test="${userConnected}">
-		<div id="ListeEnchere-Lien">
-			<form method="get" action="Encherir" name="Encherir" id="Encherir">
-				<button>Enchère</button>
-			</form>
-
-			<form method="get" action="NouvelleVente" name="NouvelleVente"
-				id="NouvelleVente">
-				<button>Vendre un article</button>
-			</form>
-
-			<form method="get" action="MonProfil" value="true" name="MyProfil"
-				id="MyProfil">
-				<button>Mon Profil</button>
-				<input type="hidden" value="${Id_Utils}" name="IDUtilisateur"
-					id="IDUtilisateur" />
-			</form>
-
-			<form method="get" action="Deconnexion">
-				<button>Deconnexion</button>
-			</form>
-		</div>
-	</c:if>
-
-	<c:if test="${not userConnected}">
-		<div id="Inscription-connexion">
-			<a href="${pageContext.request.contextPath}/Connexion">S'inscrire
-				- Se connecter</a>
-		</div>
-	</c:if>
 	
 	<c:if test="${etatVente == 'EC' || etatVente == 'CR'}">
 		<div id="Titre-Centre"><h1>Detail vente</h1></div>
@@ -89,12 +63,12 @@
 	<br>
 	<br>
 	
-	<c:if test="${enchere.article.etat_vente == 'VD' && acheteur == true}">
+	<c:if test="${enchere.article.etat_vente == 'VD' && acheteur == true && connected == true }">
 		<p class="card-text">Tel : ${utilVendeur.telephone}</p>
 		<br>
 	</c:if>
 	
-		<c:if test="${etatVente == 'EC'}">
+		<c:if test="${etatVente == 'EC' && connected == true }">
 			<form method="post" action="DetailVente" name="DetailVente" id="DetailVente">
 				<input type='hidden' name='idVendeur' id='idVendeur' value="${idVendeur}" />
 				<input type='hidden' name='idArticle' id='idArticle' value="${idArticle}" />

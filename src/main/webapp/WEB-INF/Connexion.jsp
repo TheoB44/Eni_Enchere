@@ -6,12 +6,12 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <jsp:include page="fragments/meta.html"></jsp:include>
-<jsp:include page="fragments/HeaderConnected.html"></jsp:include>
+<jsp:include page="fragments/HeaderConnection.jsp"></jsp:include>
 </head>
 	<body >
 		<div id="connexion-container">
 	
-			<h1>ENI-EnchÃ¨res</h1>
+			<h1>ENI-Enchères</h1>
 			<br>
 	
 			<form class="row justify-content-center mb-2" method="post" action="Connexion">
@@ -30,17 +30,17 @@
 		
 					<br> <br>
 		
-					<button name="connexion-btn" id="connexion-btn" onclick="CreateCookie();">Connexion</button>
+					<button class="btn btn-outline-dark" name="connexion-btn" id="connexion-btn" onclick="CreateCookie();">Connexion</button>
 		
 					<div name="connexion-connexion" id="connexion-connexion" >
 			    		<input type="checkbox" id="CheckBox-Souvenir"> Se souvenir de moi</input> <!-- Ici crÃ©er un cookie avec les id -->
-						<p link="https://google.com">Mot de passe oubliÃ©</p>
+						<p link="https://google.com">Mot de passe oublié</p>
 					</div>
 	
 			</form>
 	
 			<button
-				onclick="window.location.href = '${pageContext.request.contextPath}/Inscription'">Créer un compte</button>
+				onclick="window.location.href = '${pageContext.request.contextPath}/Inscription'" class="btn btn-outline-dark">Créer un compte</button>
 		</div>	
 		
 		<script>
