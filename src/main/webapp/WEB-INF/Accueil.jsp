@@ -33,6 +33,13 @@
 								id="IDUtilisateur" />
 						</form>
 					</td>	
+					<c:if test="${admin}">
+						<td>
+							<form method="get" action="ListeUtilisateur">
+								<button>Liste des Utilisateurs</button>
+							</form>
+						</td>
+					</c:if>
 					<td>
 						<form method="get" action="Deconnexion">
 							<button>Deconnexion</button>
