@@ -12,4 +12,6 @@ public interface UtilisateursDAO {
 	void update(Utilisateurs util);
 	boolean testPseudoAndMail(String pseudo, String mail);
 	Utilisateurs getAdressById(int idUtil);
+	boolean IsAdmin(int id);
+	List<Utilisateurs> selectAll();
 }

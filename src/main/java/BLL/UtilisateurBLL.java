@@ -46,5 +46,15 @@ public class UtilisateurBLL {
 	public Utilisateurs getAdressById(int IdUtil) {
 		return dao.getAdressById(IdUtil);
 	}
+	
+	public boolean IsAdmin(int id)
+	{
+		return dao.IsAdmin(id);
+	}
+	
+	public List<Utilisateurs> selectAll()
+	{
+		return dao.selectAll();
+	}
 
 }
