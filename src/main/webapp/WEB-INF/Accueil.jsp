@@ -8,8 +8,12 @@
 <title>Accueil</title>
 
 
-<c:if test="${userConnected}">
+<c:if test="${userConnected && not admin}">
 <jsp:include page="fragments/HeaderConnected.jsp"></jsp:include>
+</c:if>
+
+<c:if test="${userConnected && admin}">
+<jsp:include page="fragments/HeaderConnectedAdmin.jsp"></jsp:include>
 </c:if>
 
 <c:if test="${not userConnected}">

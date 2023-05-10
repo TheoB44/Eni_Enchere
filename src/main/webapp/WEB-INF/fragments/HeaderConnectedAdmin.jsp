@@ -32,6 +32,13 @@
 									id="IDUtilisateur" />
 							</form>
 						</td>	
+						</td>	
+								<td>
+									<form method="get" action="ListeUtilisateur">
+										<button class="btn btn-outline-dark">Liste des Utilisateurs</button>
+									</form>
+								</td>
+						<td>
 						<td>
 							<form method="get" action="Deconnexion">
 								<button class="btn btn-outline-dark">Deconnexion</button>
