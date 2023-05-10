@@ -70,6 +70,17 @@ public class Accueil extends HttpServlet {
 		
 		if(loginFlag != null && loginFlag.equals(true)) {
 			request.setAttribute("util", session.getAttribute("currentUser"));
+			
+
+			int id = (int) session.getAttribute("IdUtilisateur");
+			
+			if(id > 0)
+			{
+				boolean admin = bll.IsAdmin(id);
+				
+				session.setAttribute("admin", admin);
+				request.setAttribute("admin", admin);
+			}
 		}
 		else {
 			request.setAttribute("userConnected",false);

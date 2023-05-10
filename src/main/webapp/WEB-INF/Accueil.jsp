@@ -9,12 +9,12 @@
 
 
 <c:if test="${userConnected}">
-	<jsp:include page="fragments/HeaderConnected.jsp"></jsp:include>
-	</c:if>
+<jsp:include page="fragments/HeaderConnected.jsp"></jsp:include>
+</c:if>
 
-	<c:if test="${not userConnected}">
-	<jsp:include page="fragments/HeaderDisconnected.jsp"></jsp:include>
-	</c:if>
+<c:if test="${not userConnected}">
+<jsp:include page="fragments/HeaderDisconnected.jsp"></jsp:include>
+</c:if>
 
 </head>
 <body>

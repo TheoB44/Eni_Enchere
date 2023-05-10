@@ -149,7 +149,13 @@
 			
 			<input type="hidden" id="idArticle" name="idArticle" value="${article.no_article}"></input>
 	
-			<button name="Modifier" id="Modifier" value="true">Enregistrer</button>
+			<c:if test="${(article.etat_vente =='CR')}">
+				<button name="Modifier" id="Modifier" value="true">Enregistrer</button>
+			</c:if>
+			<c:if test="${not (article.etat_vente =='CR')}">
+			Vous ne pouvez plus modifier cette vente !
+			</c:if>
+			
 			<button onclick = "window.location.href = '${pageContext.request.contextPath}/Accueil'">Annuler</button>
 				
 			<c:if test="${(article.etat_vente =='CR')}">

@@ -24,6 +24,70 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 	private static final String SELECT_ARTICLE_UTILISATEUR = "SELECT no_article FROM ARTICLES_VENDUS WHERE no_utilisateur=?";
 	private static final String SELECT_TEST_PSEUDO_MAIL_EXIST = "SELECT no_utilisateur FROM UTILISATEURS WHERE pseudo = ? or email = ?";
 	private static final String SELECT_ADRESSE_UTILISATEUR = "SELECT rue, code_postal, ville FROM UTILISATEURS WHERE no_utilisateur = ?";
+	private static final String SELECT_ADMINISTRATEUR = "SELECT administrateur FROM UTILISATEURS WHERE no_utilisateur = ? ;";
+	private static final String SELECT_ALL_UTILISATEUR = "SELECT * FROM UTILISATEURS;";
+	
+	public boolean IsAdmin(int id)
+	{
+		boolean resultat = false;
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+			
+			PreparedStatement ps = cnx.prepareStatement(SELECT_ADMINISTRATEUR);
+
+				ps.setInt(1, id);
+				
+				ResultSet rs = ps.executeQuery();
+				if (rs != null) {
+					while (rs.next()) {
+						boolean admin = rs.getBoolean("administrateur");
+						
+						if(admin)
+						{
+							resultat = true;
+						}
+					}
+				}
+			}catch (Exception e) {
+				e.getMessage();
+			}
+			return resultat;
+	}
+	
+	public List<Utilisateurs> selectAll()
+	{
+		List<Utilisateurs> resultat = new ArrayList<Utilisateurs>();
+		Utilisateurs util = null;
+		// 1e etape : ouvrir la connexion a la bdd
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+			// 2e etape : preparer la requete SQL qu'on souhaite executer
+			PreparedStatement ps = cnx.prepareStatement(SELECT_ALL_UTILISATEUR);
+
+			// 4e etape : execution de la requete et interpretation des resultats
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+				util = new Utilisateurs();
+				util.setNo_utilisateurs(rs.getInt("no_utilisateur"));
+				util.setAdministrateur(rs.getBoolean("administrateur"));
+				util.setCode_postal(rs.getString("code_postal"));
+				util.setCredit(rs.getInt("credit"));
+				util.setEmail(rs.getString("email"));
+				util.setMot_de_passe(rs.getString("mot_de_passe"));
+				util.setNom(rs.getString("nom"));
+				util.setPrenom(rs.getString("prenom"));
+				util.setPseudo(rs.getString("pseudo"));
+				util.setRue(rs.getString("rue"));
+				util.setTelephone(rs.getString("telephone"));
+				util.setVille(rs.getString("ville"));
+				resultat.add(util);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return resultat;
+	}
+	
+	
 	
 	public Utilisateurs getAdressById(int idUtil)
 	{
