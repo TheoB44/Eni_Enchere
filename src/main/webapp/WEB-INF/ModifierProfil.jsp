@@ -9,41 +9,68 @@
 <title>Modifier ou supprimer mon profil</title>
 </head>
 <body>
-	<h1>ENI-Enchères</h1>
-	
-	
 	<div id="Titre-Centre">Mon Profil</div>
 
-<form method = "post" action = "ModifierProfil">
-<div Id = "Inscription-Input">
 
-Pseudo : <input type = "text" name = "pseudo" id="pseudo"></input>		Nom : <input type = "text" name = "nom" id="nom"></input>
-<br>
-Prénom : <input type = "text" name = "prenom" id="prenom"></input>		Email : <input type = "text" name = "email" id="email"></input>
-<br>
-Téléphone : <input type = "text" name = "telephone" id="telephone"></input>		Rue : <input type = "text" name = "rue" id="rue"></input>
-<br>
-Code Postal : <input type = "text" name = "codePostal" id="codePostal"></input>		Ville : <input type = "text" name = "ville" id="ville"></input>
-<br>
-Mot de passe actuel : <input type = "password" name = "passwordActuel" id="passwordActuel"></input>
-<br>
-Mot de passe : <input type = "password" name = "passwordNew" id="passwordNew"></input>		Confirmation : <input type = "password" name = "passwordConfirmation" id="passwordConfirmation"></input>
-<br>
+	<div id="Modification-input" style="float:left;">
+		<div Id = "Inscription-Input" style="float:left;">
+		
+			Pseudo : <input type = "text" name = "pseudo" id="pseudo" style="float:right;"></input>		
+			<br>
+			<br>
+			Prénom : <input type = "text" name = "prenom" id="prenom" style="float:right;"></input>		
+			<br>
+			<br>
+			Téléphone : <input type = "text" name = "telephone" id="telephone" style="float:right;"></input>	
+			<br>
+			<br>	
+			Code Postal : <input type = "text" name = "codePostal" id="codePostal" style="float:right;"></input>		
+			<br>
+			<br>
+			Mot de passe actuel : <input type = "password" name = "passwordActuel" id="passwordActuel" style="float:right;"></input>
+			<br>
+			<br>
+			Mot de passe : <input type = "password" name = "passwordNew" id="passwordNew" style="float:right;"></input>	
+			<br>	
+			<br>
+			Crédit : ${ credit}	
+		</div>
+		
+		<div Id = "Inscription-Input" style="float:right;   margin-left: 20px;">
+		
+			Nom : <input type = "text" name = "nom" id="nom" style="float:right;"></input>
+			<br>
+			<br>
+			Email : <input type = "text" name = "email" id="email" style="float:right;"></input>
+			<br>
+			<br>
+			Rue : <input type = "text" name = "rue" id="rue" style="float:right;"></input>
+			<br>
+			<br>
+			Ville : <input type = "text" name = "ville" id="ville" style="float:right;"></input>
+			<br>
+			<br>
+			<br>
+			<br>
+			Confirmation : <input type = "password" name = "passwordConfirmation" id="passwordConfirmation" style="float:right;"></input>
 
-Crédit : <!-- Afficher nombre crédit -->
-
-
-</div>
-
-	<div id="Isncription-Button">
-	
-	<button>Enregistrer</button> 
-	
+		</div>
+		
+		<br>
+		<br>
+		<br>
+			<div id="Isncription-Button" style="float:left;">
+				<br>
+				<form method = "post" action = "ModifierProfil" style="float: left;">
+					<button style="float:left;">Enregistrer</button> 
+				</form>
+				
+				<form method = "delete" action = "SupprimerProfil" style="float: left; margin-left: 5px;">
+					<button onclick = "window.location.href = '${pageContext.request.contextPath}/Accueil'" style="float:left;">Supprimer</button>
+				</form>
+			</div>
 	</div>
-</form>
 
-<form method = "delete" action = "SupprimerProfil">
-<button onclick = "window.location.href = '${pageContext.request.contextPath}/Accueil'">Supprimer</button>
-</form>
+
 </body>
 </html>

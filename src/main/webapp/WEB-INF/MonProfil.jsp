@@ -31,9 +31,9 @@
 	<% if((boolean)(request.getAttribute("MonProfil")))
 	{
 		%>
-	
-		<button  style ="margin-left:25px;"
-			onclick="window.location.href = '${pageContext.request.contextPath}/ModifierProfil'">Modifier</button>
+	<form method = "get" action = "infoProfil">
+		<button  style ="margin-left:25px;">Modifier</button>
+	</form>
 		<%}%>
 
 </body>

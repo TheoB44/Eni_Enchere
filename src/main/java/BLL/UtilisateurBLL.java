@@ -56,5 +56,10 @@ public class UtilisateurBLL {
 	{
 		return dao.selectAll();
 	}
+	
+	public int getCredit(int idUtil)
+	{
+		return dao.getCredit(idUtil);
+	}
 
 }

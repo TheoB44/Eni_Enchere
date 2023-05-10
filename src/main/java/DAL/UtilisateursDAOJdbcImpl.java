@@ -26,6 +26,30 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 	private static final String SELECT_ADRESSE_UTILISATEUR = "SELECT rue, code_postal, ville FROM UTILISATEURS WHERE no_utilisateur = ?";
 	private static final String SELECT_ADMINISTRATEUR = "SELECT administrateur FROM UTILISATEURS WHERE no_utilisateur = ? ;";
 	private static final String SELECT_ALL_UTILISATEUR = "SELECT * FROM UTILISATEURS;";
+	private static final String SELECT_CREDIT = "SELECT credit FROM UTILISATEURS WHERE no_utilisateur = ?;";
+	
+	
+	public int getCredit(int idUtil) {
+		int resultat = 0;
+		try (Connection cnx = ConnectionProvider.getConnection();) {
+			
+			PreparedStatement ps = cnx.prepareStatement(SELECT_CREDIT);
+
+				ps.setInt(1, idUtil);
+				
+				ResultSet rs = ps.executeQuery();
+				if (rs != null) {
+					while (rs.next()) {
+						resultat = rs.getInt("credit");	
+					}
+				}
+			}catch (Exception e) {
+				e.getMessage();
+			}
+			return resultat;
+	}
+	
+	
 	
 	public boolean IsAdmin(int id)
 	{
@@ -216,7 +240,6 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 	@Override
 	public void delete(int no_util) {
 		deleteEnchere(no_util);
-		deleteArticles(no_util);
 		deleteUtil(no_util);
 	}
 
@@ -231,10 +254,8 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 
 			ResultSet rs = ps.executeQuery();
 			List<Integer> resultat = new ArrayList<Integer>();
-			int i = 1;
 			while (rs.next()) {
-				resultat.add(rs.getInt(i));
-				i++;
+				resultat.add(rs.getInt(1));
 			}
 
 			for (Integer integer : resultat) {
@@ -244,12 +265,16 @@ public class UtilisateursDAOJdbcImpl implements UtilisateursDAO {
 
 				cnx.commit();
 
+				}
+			deleteArticles(no_util);
+			
+			
+			for (Integer integer : resultat) {
 				PreparedStatement ps3 = cnx.prepareStatement(DELETERETRAITS);
-				ps2.setInt(1, integer.intValue());
-				ps2.executeUpdate();
-
+				ps3.setInt(1, integer.intValue());
+				ps3.executeUpdate();
+	
 				cnx.commit();
-
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

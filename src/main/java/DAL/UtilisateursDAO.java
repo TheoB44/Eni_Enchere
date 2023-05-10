@@ -14,4 +14,5 @@ public interface UtilisateursDAO {
 	Utilisateurs getAdressById(int idUtil);
 	boolean IsAdmin(int id);
 	List<Utilisateurs> selectAll();
+	int getCredit(int idUtil);
 }
