@@ -41,20 +41,22 @@ public class Connexion extends HttpServlet {
 		//récupération du cookie
 		
 		var cookie = request.getCookies();
-		String id = "";
-		for(int i =0; i < cookie.length; i++)
+		if(cookie != null)
 		{
-			var unCookie = cookie[i];
-			if(unCookie.getName().equals("id"))
-				id = unCookie.getValue();
+			String id = "";
+			for(int i =0; i < cookie.length; i++)
+			{
+				var unCookie = cookie[i];
+				if(unCookie.getName().equals("id"))
+					id = unCookie.getValue();
+				
+			}
 			
+			if(!id.isBlank())
+			{
+				request.setAttribute("userId", id);
+			}
 		}
-		
-		if(!id.isBlank())
-		{
-			request.setAttribute("userId", id);
-		}
-		
 		
 		request.getRequestDispatcher("/WEB-INF/Connexion.jsp").forward(request, response);
 	}
