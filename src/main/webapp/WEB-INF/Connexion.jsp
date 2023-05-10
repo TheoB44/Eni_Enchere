@@ -20,7 +20,7 @@
 	
 					<div name="connexion-identifiant" id="connexion-identifiant">
 						<div id="connexion-divCo" name="Identifiant">
-							Identifiant : <input type="text" name="connexion_identifiant" id="connexion_identifiant"></input>
+							Identifiant : <input type="text" name="connexion_identifiant" id="connexion_identifiant" value="${userId}"></input>
 						</div>
 						<br>
 						<div id="connexion" name="MDP">
@@ -63,8 +63,6 @@
 				{
 					var string = 'id=' + document.getElementById("connexion_identifiant").value; 
 					document.cookie = string;
-					
-					document.cookie = 'pwd=' + document.getElementById("connexion_mdp").value;
 				}
 			}
 		}

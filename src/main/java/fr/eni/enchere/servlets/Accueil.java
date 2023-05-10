@@ -68,45 +68,8 @@ public class Accueil extends HttpServlet {
 		HttpSession session = request.getSession();
 		Object loginFlag = session.getAttribute("userConnected");
 		
-		//récupération du cookie
-		
-		var cookie = request.getCookies();
-		
-		
 		if(loginFlag != null && loginFlag.equals(true)) {
 			request.setAttribute("util", session.getAttribute("currentUser"));
-		}else if(cookie != null)
-		{
-			String id = "";
-			String pwd = "";
-			for(int i =0; i < cookie.length; i++)
-			{
-				var unCookie = cookie[i];
-				if(unCookie.getName().equals("id"))
-					id = unCookie.getValue();
-				
-				if(unCookie.getName().equals("pwd"))
-					pwd = unCookie.getValue();
-			}
-			
-			if(!pwd.isBlank() && !id.isBlank())
-			{
-				Utilisateurs util = new Utilisateurs();
-				
-				try {
-					util = bll.connexion(id, pwd);
-					
-				} catch (Exception e) {
-					request.setAttribute("erreurs", e.getMessage());
-				}
-				
-				if(util.getNo_utilisateurs() > 0) {
-					session.setAttribute("currentUser", util);
-
-					session.setAttribute("IdUtilisateur", util.getNo_utilisateurs());
-					session.setAttribute("userConnected", true);
-				}
-			}
 		}
 		else {
 			request.setAttribute("userConnected",false);

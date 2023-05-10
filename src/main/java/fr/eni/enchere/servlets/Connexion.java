@@ -36,6 +36,26 @@ public class Connexion extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		//récupération du cookie
+		
+		var cookie = request.getCookies();
+		String id = "";
+		for(int i =0; i < cookie.length; i++)
+		{
+			var unCookie = cookie[i];
+			if(unCookie.getName().equals("id"))
+				id = unCookie.getValue();
+			
+		}
+		
+		if(!id.isBlank())
+		{
+			request.setAttribute("userId", id);
+		}
+		
+		
 		request.getRequestDispatcher("/WEB-INF/Connexion.jsp").forward(request, response);
 	}
 
