@@ -123,6 +123,7 @@
 					  }
 				}
 			</script>
+			<!-- test -->
 	
 			<p>Mise à prix :</p>
 			<input id="prix" name="prix" type="number" value="${article.prix_initial}"></input>
