@@ -261,7 +261,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 			if (noCate.equals("all")) {
 				ps.setString(1, "%" + nomArticle + "%");
 			} else {
-				ps.setString(2, "%" + nomArticle + "%");
+				ps.setString(1, "%" + nomArticle + "%");
 				ps.setString(2, noCate);
 			}
 
